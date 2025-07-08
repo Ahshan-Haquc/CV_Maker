@@ -12,6 +12,7 @@ import Experience from "./components/dashboard/Experience";
 import Education from "./components/dashboard/Education";
 import Acheivements from "./components/dashboard/Acheivements";
 import Activities from "./components/dashboard/Activities";
+import Reference from "./components/dashboard/Reference";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -44,6 +45,7 @@ function App() {
                     <Route path="education" element={<Education />} />
                     <Route path="acheivements" element={<Acheivements />} />
                     <Route path="activities" element={<Activities />} />
+                    <Route path="reference" element={<Reference />} />
                   </Route>
                 </Route>
                 <Route path="/viewCV" element={<ViewCV />} />

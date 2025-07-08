@@ -142,7 +142,7 @@ const softSkillName = [
       <SkillsAddByCategory category="UI/UX" values={uIuXNames} />
       <SkillsAddByCategory category="Database" values={databaseNames} />
       <SkillsAddByCategory
-        category="Tools And Technology"
+        category="ToolsAndTechnology"
         values={toolsAndTechnologiesNames}
       />
       <SkillsAddByCategory category="SoftSkills" values={softSkillName} />

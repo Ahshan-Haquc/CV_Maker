@@ -247,7 +247,6 @@ cvRouter.post("/updateUserContact", async (req, res, next) => {
     }
 });
 //update user skills
-//--------------coding pending------------
 cvRouter.post("/updateUserSkills", async (req, res) => {
   const { userId, skills } = req.body;
 
@@ -314,18 +313,23 @@ cvRouter.post("/updateUserExperience",async(req,res,next)=>{
 })
 //update user education
 cvRouter.post("/updateUserEducation",async(req,res,next)=>{
+    console.log("Working 1")
     try {
         const {userId, educationQualification, educationInstitutionName, startingDate, endingDate}= req.body;
+        console.log(userId, educationQualification, educationInstitutionName, startingDate, endingDate)
         if(!userId || !educationQualification || !educationInstitutionName || !startingDate || !endingDate){
+            console.log("Working 1")
             return res.status(401).json({message:"Input field not filled"});
         }
         const userCV = await CVmodel.findOne({userId});
+        console.log("Working 1")
         if(!userCV){
+            console.log("Working 1")
             return res.status(401).json({message:"User cv not found"});
         }
-        userCV.education.push({updatedCV:userCV,educationQualification, educationInstitutionName, startingDate, endingDate});
+        userCV.education.push({educationQualification, educationInstitutionName, startingDate, endingDate});
         await userCV.save();
-        res.status(200).json({message:"Your education added succesfully."});
+        res.status(200).json({updatedCV:userCV,message:"Your education added succesfully."});
     } catch (error) {
         next(error);
     }
@@ -367,6 +371,45 @@ cvRouter.post("/updateUserActivities",async(req,res,next)=>{
     }
 })
 
+// Update user references (Add a new reference)
+cvRouter.post("/updateUserReference", async (req, res) => {
+  const { userId, referenceName, referenceCompany, referenceEmail, referencePhone } = req.body;
+
+  try {
+    const userCV = await CVmodel.findOne({ userId });
+
+    if (!userCV) {
+      return res.status(404).json({ message: "User CV not found" });
+    }
+
+    const newReference = {
+      referenceName,
+      referenceCompany,
+      referenceEmail,
+      referencePhone,
+    };
+
+    // Initialize reference array if undefined
+    if (!userCV.reference) {
+      userCV.reference = [];
+    }
+
+    // Push new reference
+    userCV.reference.push(newReference);
+
+    // Save the updated CV
+    const updatedCV = await userCV.save();
+
+    res.status(200).json({
+      message: "Reference added successfully!",
+      updatedCV,
+    });
+  } catch (error) {
+    console.error("Error updating reference:", error);
+    res.status(500).json({ message: "Server error while adding reference" });
+  }
+});
+
 
 //delete from cv
 cvRouter.post("/deleteItems", async(req,res,next)=>{
@@ -387,6 +430,8 @@ cvRouter.post("/deleteItems", async(req,res,next)=>{
             CV.acheivement.splice(indexToDelete, 1); // 1 item will be deleted from that index       
         }else if(pageName==="activities"){
             CV.activities.splice(indexToDelete, 1); // 1 item will be deleted from that index       
+        }else if(pageName==="reference"){
+            CV.reference.splice(indexToDelete, 1); // 1 item will be deleted from that index       
         }
 
         

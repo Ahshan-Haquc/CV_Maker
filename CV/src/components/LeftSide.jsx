@@ -34,42 +34,44 @@ const LeftSide = () => {
       <div className="w-full h-fit mt-12 pl-6 ">
         <Title title="Skills" />
         <div className="pl-2">
-          <Skills
-            skillTitle="Frontend"
-            skillNames={[
-              "HTML",
-              "CSS",
-              "JavaScript",
-              "Tailwind CSS",
-              "React.js",
-            ]}
-          />
-          <Skills
-            skillTitle="Backend"
-            skillNames={["Node.js", "Express.js", "RESTApi"]}
-          />
-          <Skills skillTitle="Database" skillNames={["MongoDB", "MySQL"]} />
-          <Skills
-            skillTitle="Technologies"
-            skillNames={[
-              "Figma ( UI/UX Design )",
-              "Postman ( API Testing )",
-              "Chatgpt",
-              "VS code",
-            ]}
-          />
+          {userCV?.skills?.Frontend && userCV.skills.Frontend.length > 0 && (
+                <Skills skillTitle="Frontend" skillNames={userCV.skills.Frontend} />
+          )}
+          {userCV?.skills?.Backend && userCV.skills.Backend.length > 0 && (
+                <Skills skillTitle="Backend" skillNames={userCV.skills.Backend} />
+          )}
+          {userCV?.skills?.Database && userCV.skills.Database.length > 0 && (
+                <Skills skillTitle="Database" skillNames={userCV.skills.Database} />
+          )}
+          {userCV?.skills?.UIUX && userCV.skills.UIUX.length > 0 && (
+                <Skills skillTitle="UI/UX" skillNames={userCV.skills.UIUX} />
+          )}
+          {userCV?.skills?.ToolsAndTechnology && userCV.skills.ToolsAndTechnology.length > 0 && (
+                <Skills skillTitle="Tools And Technology" skillNames={userCV.skills.ToolsAndTechnology} />
+          )}
+          {userCV?.skills?.SoftSkills && userCV.skills.SoftSkills.length > 0 && (
+                <Skills skillTitle="Soft Skills" skillNames={userCV.skills.SoftSkills} />
+          )}
         </div>
       </div>
       {/* reference */}
+      {userCV?.reference.length && (
       <div className="w-full h-fit mt-12 pl-6 ">
         <Title title="Reference" />
-        <div className="text-white ml-11 my-8">
-          <div className="text-2xl font-bold">Ms. Babe Sultana</div>
-          <div className="text-xl ">Senior Lecturer, CSE</div>
-          <div className="text-xl ">Green University of Bangladesh</div>
-          <div className="text-xl ">babesultana@cse.green.edu.bd</div>
+        
+        {userCV?.reference.map((ref,index)=>{
+          return (
+          <div className="text-white ml-11 my-8">
+          <div className="text-2xl font-bold">{ref.referenceName}</div>
+          <div className="text-xl ">{ref.referenceCompany}</div>
+          <div className="text-xl ">{ref.referenceEmail}</div>
+          <div className="text-xl ">{ref.referencePhone}</div>
         </div>
+          )
+        })}
+        
       </div>
+      )}
     </div>
   );
 };

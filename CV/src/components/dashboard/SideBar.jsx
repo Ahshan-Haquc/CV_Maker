@@ -7,8 +7,8 @@ const SideBar = () => {
         to="/home"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-home mr-2"></i>
@@ -18,8 +18,8 @@ const SideBar = () => {
         to="/profile"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-user mr-2"></i>
@@ -29,8 +29,8 @@ const SideBar = () => {
         to="/description"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-align-left mr-2"></i>
@@ -40,8 +40,8 @@ const SideBar = () => {
         to="/contact"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-align-left mr-2"></i>
@@ -51,8 +51,8 @@ const SideBar = () => {
         to="/skills"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-tools mr-2"></i>
@@ -62,8 +62,8 @@ const SideBar = () => {
         to="/projects"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-tasks mr-2"></i>
@@ -73,8 +73,8 @@ const SideBar = () => {
         to="/experience"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-briefcase mr-2"></i>
@@ -84,8 +84,8 @@ const SideBar = () => {
         to="/education"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-graduation-cap mr-2"></i>
@@ -95,8 +95,8 @@ const SideBar = () => {
         to="/acheivements"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-trophy mr-2"></i>
@@ -106,12 +106,23 @@ const SideBar = () => {
         to="/activities"
         className={({ isActive }) =>
           `${
-            isActive ? "bg-[#ff8757]" : ""
-          } p-3 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-1 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
         }
       >
         <i className="fas fa-futbol mr-2"></i>
         Activities
+      </NavLink>
+      <NavLink
+        to="/reference"
+        className={({ isActive }) =>
+          `${
+            isActive ? "bg-gray-300" : ""
+          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+        }
+      >
+        <i className="fas fa-user-check mr-2"></i>
+        Reference
       </NavLink>
     </div>
   );

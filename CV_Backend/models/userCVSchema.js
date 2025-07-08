@@ -39,6 +39,11 @@ const UserCVSchema = mongoose.Schema({
             type:String,
         }
     ],
+    reference:[
+        {
+            type:Object
+        }
+    ],
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"

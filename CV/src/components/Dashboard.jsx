@@ -28,7 +28,7 @@ const Dashboard = () => {
         <div className="text-4xl font-bold">Dashboard</div>
         <div className="mr-5">
           <NavLink
-            to={"/viewCV"}
+            to={"/home"}
             className="mr-5 p-2  rounded-full hover:bg-[#ff8757] duration-500"
           >
             <i className="fa-solid fa-eye"></i>
