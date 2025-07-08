@@ -1,22 +1,15 @@
-import { useState, createContext, useContext } from "react";
+import { createContext, useContext, useState } from "react";
 
-export const SkillContext = createContext();
+export const SkillsContext = createContext();
 
-export const SkillContextProvider = ({ children }) => {
-  const [skills, setSkills] = useState({
-    Frontend: [],
-    Backend: [],
-    Database: [],
-    Technologies: [],
-    SoftSkills: [],
-    Others: [],
-  });
+export const SkillsProvider = ({ children }) => {
+  const [skills, setSkills] = useState({});
 
   return (
-    <SkillContext.Provider value={{ skills, setSkills }}>
+    <SkillsContext.Provider value={{ skills, setSkills }}>
       {children}
-    </SkillContext.Provider>
+    </SkillsContext.Provider>
   );
 };
 
-export const useSkillsContext = () => useContext(SkillContext);
+export const useSkillsContext = () => useContext(SkillsContext);

@@ -11,6 +11,9 @@ const UserCVSchema = mongoose.Schema({
     githubId: {type:String, default:"Enter Your githubId"},
     portfolioLink: {type:String, default:"Enter Your portfolioLink"},
     address: {type:String, default:"Enter Your address"},
+    skills:{
+        type: Object,
+    },
     projects:[
         {
             type:Object,

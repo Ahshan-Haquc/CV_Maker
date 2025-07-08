@@ -1,19 +1,34 @@
-import React from "react";
 import { useSkillsContext } from "../../../context/SkillsAddingContext";
 
 const SkillsAdd = ({ name, identifier, num, category }) => {
-  const { setSkills } = useSkillsContext();
+  const { skills, setSkills } = useSkillsContext();
 
-  // generally adding skills in context
   const handleInput = (e) => {
+    const isChecked = e.target.checked;
     const categoryName = e.target.getAttribute("categoryname");
     const value = e.target.value;
 
-    setSkills((prev) => ({
-      ...prev,
-      [categoryName]: [...prev[categoryName], value],
-    }));
-    alert(categoryName, value);
+    setSkills((prev) => {
+      const currentCategorySkills = prev[categoryName] || [];
+
+      if (isChecked) {
+        // Add only if not already present
+        if (!currentCategorySkills.includes(value)) {
+          return {
+            ...prev,
+            [categoryName]: [...currentCategorySkills, value],
+          };
+        }
+      } else {
+        // Remove the unchecked value
+        return {
+          ...prev,
+          [categoryName]: currentCategorySkills.filter((skill) => skill !== value),
+        };
+      }
+
+      return prev;
+    });
   };
 
   return (
@@ -26,8 +41,7 @@ const SkillsAdd = ({ name, identifier, num, category }) => {
         value={name}
         onChange={handleInput}
       />
-      <label for={identifier + num} className="text-lg">
-        {" "}
+      <label htmlFor={identifier + num} className="text-lg">
         {name}
       </label>
     </div>

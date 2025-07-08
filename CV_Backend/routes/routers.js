@@ -248,26 +248,28 @@ cvRouter.post("/updateUserContact", async (req, res, next) => {
 });
 //update user skills
 //--------------coding pending------------
-cvRouter.post("/updateUserSkills",async(req,res,next)=>{
-    try {
-        const {userId, userName, userProfession}= req.body;
-        if(!userId || !userName || !userProfession){
-            return res.status(401).json({message:"Input field not filled"});
-        }
-        await CVmodel.updateOne(
-            {userId:userId},
-            {
-                $set:{
-                    name:userName,
-                    profession: userProfession
-                }
-            }
-        )
-        res.status(200).json({message:"User profile updated succesfully."});
-    } catch (error) {
-        next(error);
+cvRouter.post("/updateUserSkills", async (req, res) => {
+  const { userId, skills } = req.body;
+
+  try {
+    const userCV = await CVmodel.findOne({ userId });
+
+    if (!userCV) {
+      return res.status(404).json({ message: "User CV not found" });
     }
-})
+
+    userCV.skills = skills;
+
+    await userCV.save();
+
+    return res.status(200).json({ message: "Skills updated", updatedCV: userCV });
+  } catch (error) {
+    console.error("Error updating skills:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+
 //update or delete user projects
 cvRouter.post("/updateUserProjects",async(req,res,next)=>{
     try {

@@ -17,7 +17,7 @@ import Signup from "./components/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import { CVprovider } from "./context/UserCVContext";
-import { SkillContextProvider } from "./context/SkillsAddingContext";
+import { SkillsProvider } from "./context/SkillsAddingContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
     <div className="flex p-0 m-0 min-h-screen max-h-fit w-screen">
       <AuthProvider>
         <CVprovider>
-          <SkillContextProvider>
+          <SkillsProvider>
             <BrowserRouter>
               <Routes>
                 <Route path="/login" element={<Login />} />
@@ -57,7 +57,7 @@ function App() {
                 />
               </Routes>
             </BrowserRouter>
-          </SkillContextProvider>
+          </SkillsProvider>
         </CVprovider>
       </AuthProvider>
     </div>
