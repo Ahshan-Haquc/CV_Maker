@@ -22,8 +22,12 @@ const ViewCV = () => {
       >
         <i class="fa-solid fa-arrow-left"></i>
       </NavLink>
+      <div className=" p-[100px] bg-gray-100">
+      <div id="cv-content" className="flex">
       <LeftSide />
       <RightSide />
+      </div>
+      </div>
     </>
   );
 };

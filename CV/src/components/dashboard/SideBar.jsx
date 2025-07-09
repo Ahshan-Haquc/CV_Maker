@@ -2,126 +2,126 @@ import { NavLink } from "react-router-dom";
 
 const SideBar = () => {
   return (
-    <div className="h-full min-w-[250px] bg-gray-100">
+    <div className="h-full min-w-[250px] bg-gray-100 shadow-lg border-r border-gray-200"> {/* Added shadow and subtle border to the sidebar itself */}
       <NavLink
         to="/home"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-home mr-2"></i>
+        <i className="fas fa-home mr-3 text-xl"></i> {/* Increased icon size slightly */}
         Home
       </NavLink>
       <NavLink
         to="/profile"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-user mr-2"></i>
+        <i className="fas fa-user mr-3 text-xl"></i>
         Your Profile
       </NavLink>
       <NavLink
         to="/description"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-align-left mr-2"></i>
+        <i className="fas fa-align-left mr-3 text-xl"></i>
         Description
       </NavLink>
       <NavLink
         to="/contact"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-align-left mr-2"></i>
+        <i className="fas fa-address-book mr-3 text-xl"></i> {/* Changed icon for contact */}
         Contact
       </NavLink>
       <NavLink
         to="/skills"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-tools mr-2"></i>
+        <i className="fas fa-tools mr-3 text-xl"></i>
         Skills
       </NavLink>
       <NavLink
         to="/projects"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-tasks mr-2"></i>
+        <i className="fas fa-tasks mr-3 text-xl"></i>
         Projects
       </NavLink>
       <NavLink
         to="/experience"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-briefcase mr-2"></i>
+        <i className="fas fa-briefcase mr-3 text-xl"></i>
         Experience
       </NavLink>
       <NavLink
         to="/education"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-graduation-cap mr-2"></i>
+        <i className="fas fa-graduation-cap mr-3 text-xl"></i>
         Education
       </NavLink>
       <NavLink
         to="/acheivements"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-trophy mr-2"></i>
+        <i className="fas fa-trophy mr-3 text-xl"></i>
         Achievements
       </NavLink>
       <NavLink
         to="/activities"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-1 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-futbol mr-2"></i>
+        <i className="fas fa-running mr-3 text-xl"></i> {/* Changed icon for activities */}
         Activities
       </NavLink>
       <NavLink
         to="/reference"
         className={({ isActive }) =>
-          `${
-            isActive ? "bg-gray-300" : ""
-          } px-3 py-2 text-[#213448] text-xl  border-b-[1px] border-gray-200 hover:bg-white duration-400 block`
+          `flex items-center px-4 py-3 text-gray-800 text-lg font-medium rounded-md mx-2 my-1
+           transition-colors duration-200 ease-in-out
+           ${isActive ? "bg-blue-600 text-white shadow-md" : "hover:bg-gray-200"}`
         }
       >
-        <i className="fas fa-user-check mr-2"></i>
+        <i className="fas fa-user-tie mr-3 text-xl"></i> {/* Changed icon for reference */}
         Reference
       </NavLink>
     </div>

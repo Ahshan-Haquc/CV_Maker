@@ -8,6 +8,7 @@ const Dashboard = () => {
   const { user, setUser } = useAuthUser();
   useEffect(() => {
     document.title = "Dashboard";
+    navigate("/home");
   }, []);
 
   const logout = async () => {

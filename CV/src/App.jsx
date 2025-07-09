@@ -20,6 +20,9 @@ import { AuthProvider } from "./context/AuthContext";
 import { CVprovider } from "./context/UserCVContext";
 import { SkillsProvider } from "./context/SkillsAddingContext";
 import ProtectedRoute from "./context/ProtectedRoute";
+import ViewFormalCV from "./components/ViewFormalCV";
+import ViewFormalCV2 from "./components/ViewFormalCV2";
+import ViewFormalCV3 from "./components/ViewFormalCV3";
 
 function App() {
   return (
@@ -48,6 +51,9 @@ function App() {
                     <Route path="reference" element={<Reference />} />
                   </Route>
                 </Route>
+                <Route path="/viewFormalCV" element={<ViewFormalCV />} />
+                <Route path="/viewFormalCV2" element={<ViewFormalCV2 />} />
+                <Route path="/viewFormalCV3" element={<ViewFormalCV3 />} />
                 <Route path="/viewCV" element={<ViewCV />} />
                 <Route
                   path="*"

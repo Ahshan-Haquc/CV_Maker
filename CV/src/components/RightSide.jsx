@@ -14,17 +14,12 @@ const RightSide = () => {
   },[])
 
   return (
-    <div className="w-full h-fit p-5">
+    <div className="w-full h-fit p-5 bg-white">
       {/* name part  */}
       <div className="">
         <div className="text-6xl font-bold text-[#213448]">{userCV?.name}</div>
         <div className="mt-3 text-3xl font-bold">{userCV?.profession}</div>
         <div className="mt-6 text-2xl ">
-          {/* I am a passionate web developer specializing in JavaScript, Node.js,
-          and MongoDB with experience in full-stack web applications. Strong
-          design skills with a keen interest in Figma. Seeking an opportunity to
-          contribute to innovative projects, build scalable applications, and
-          enhance user experience. */}
           {userCV?.description}
         </div>
       </div>

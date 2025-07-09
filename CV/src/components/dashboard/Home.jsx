@@ -20,26 +20,48 @@ const Home = () => {
         </div>
       </div>
       {/* below div */}
-      <div className="h-[200px] w-[350px] md:w-[900px] p-3 m-3 flex gap-5">
-  <NavLink 
-    className="h-full w-1/2 rounded-xl bg-gradient-to-br from-blue-300 to-blue-500 text-white
-           flex justify-center items-center text-xl font-semibold shadow-lg
-           hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out
-           cursor-pointer border border-blue-400"
+      <div className="h-[200px] w-[350px] md:w-[1000px] p-3 m-3 flex gap-5">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4">
+  {/* Formal CV - Professional Blue/Indigo */}
+  <NavLink
+    to="/viewFormalCV"
+    className="w-full p-6 h-[180px] rounded-xl text-white font-semibold tracking-wide
+      shadow-[0_0_15px_rgba(0,0,0,0.4)]
+      hover:shadow-[0_0_25px_rgba(59,130,246,0.7)] transition-all duration-300
+      hover:scale-105 bg-gradient-to-tr from-blue-500 to-indigo-600 border border-blue-400
+      flex flex-col items-center justify-center space-y-3"
   >
-    <i class="fas fa-file-alt text-4xl mr-3"></i>
-    Generate Formal CV
+    <i className="fas fa-file-alt text-4xl"></i>
+    <span className="text-xl">Generate Formal CV</span>
   </NavLink>
 
-  <NavLink to={"/viewCV"}
-    className="h-full w-1/2 rounded-xl bg-gradient-to-br from-purple-300 to-purple-500 text-white
-           flex justify-center items-center text-xl font-semibold shadow-lg
-           hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out
-           cursor-pointer border border-purple-400"
+  {/* One Column CV - Fresh Green/Teal */}
+  <NavLink
+    to="/viewFormalCV2"
+    className="w-full p-6 h-[180px] rounded-xl text-white font-semibold tracking-wide
+      shadow-[0_0_15px_rgba(0,0,0,0.4)]
+      hover:shadow-[0_0_25px_rgba(16,185,129,0.7)] transition-all duration-300
+      hover:scale-105 bg-gradient-to-tr from-green-500 to-teal-600 border border-green-400
+      flex flex-col items-center justify-center space-y-3"
   >
-    <i class="fas fa-magic text-4xl mr-3"></i>
-    Generate Modern CV
+    <i className="fas fa-align-left text-4xl"></i>
+    <span className="text-xl">Generate One Column CV</span>
   </NavLink>
+
+  {/* Modern CV - Vibrant Pink/Purple */}
+  <NavLink
+    to="/viewCV"
+    className="w-full p-6 h-[180px] rounded-xl text-white font-semibold tracking-wide
+      shadow-[0_0_15px_rgba(0,0,0,0.4)]
+      hover:shadow-[0_0_25px_rgba(236,72,153,0.7)] transition-all duration-300
+      hover:scale-105 bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
+      flex flex-col items-center justify-center space-y-3"
+  >
+    <i className="fas fa-magic text-4xl"></i>
+    <span className="text-xl">Generate Modern CV</span>
+  </NavLink>
+</div>
+
 </div>
     </div>
   );
