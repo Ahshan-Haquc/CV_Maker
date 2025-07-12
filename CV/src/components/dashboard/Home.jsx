@@ -10,13 +10,14 @@ const Home = () => {
   const username = user?.email ? user.email.split("@")[0] : "";
 
   return (
-    <div className="h-full w-full pb-10 flex flex flex-col justify-center items-center text-3xl">
+    <div className="h-full w-full pb-30 flex flex flex-col justify-center items-center text-3xl">
       <div className="flex  justify-center items-center">
         <img src={welcomeImage} alt="Welcome" className="h-[200px] w-[200px] block" />
         <div className="flex flex flex-col justify-center items-center">
-          <div className="text-gray-500">Welcome {username},</div>
-      <div className="text-gray-500 text-md">to</div>
-      <div className="text-4xl font-bold">CV Maker</div>
+          {/* <div className="text-gray-500 text-sm">Welcome {username}, to...</div> */}
+      {/* <div className="text-gray-500 text-md">to</div> */}
+      <div className="text-4xl font-bold">ProFileGen</div> 
+      <div className="text-sm">Build Resumes/CV That Speak for Your Skills</div>
         </div>
       </div>
       {/* below div */}
@@ -28,7 +29,7 @@ const Home = () => {
     className="w-full p-6 h-[180px] rounded-xl text-white font-semibold tracking-wide
       shadow-[0_0_15px_rgba(0,0,0,0.4)]
       hover:shadow-[0_0_25px_rgba(59,130,246,0.7)] transition-all duration-300
-      hover:scale-105 bg-gradient-to-tr from-blue-500 to-indigo-600 border border-blue-400
+      hover:scale-105 bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
       flex flex-col items-center justify-center space-y-3"
   >
     <i className="fas fa-file-alt text-4xl"></i>
@@ -41,7 +42,7 @@ const Home = () => {
     className="w-full p-6 h-[180px] rounded-xl text-white font-semibold tracking-wide
       shadow-[0_0_15px_rgba(0,0,0,0.4)]
       hover:shadow-[0_0_25px_rgba(16,185,129,0.7)] transition-all duration-300
-      hover:scale-105 bg-gradient-to-tr from-green-500 to-teal-600 border border-green-400
+      hover:scale-105 bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
       flex flex-col items-center justify-center space-y-3"
   >
     <i className="fas fa-align-left text-4xl"></i>

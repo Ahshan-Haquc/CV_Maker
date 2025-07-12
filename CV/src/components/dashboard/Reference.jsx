@@ -93,7 +93,7 @@ const Reference = () => {
         />
         <div className="flex justify-end">
           <button
-            className="h-12 w-[200px] text-white bg-blue-600 hover:bg-blue-700 rounded-md text-xl"
+            className="h-12 w-[200px] text-white bg-gray-600 hover:bg-gray-700 rounded-md text-xl"
             onClick={submitData}
           >
             Add

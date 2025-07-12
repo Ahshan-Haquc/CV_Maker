@@ -25,8 +25,12 @@ const Dashboard = () => {
   };
   return (
     <div className="min-h-screen max-h-fit min-w-screen">
-      <div className=" bg-[#213448]  text-white p-3 flex justify-between items-center">
-        <div className="text-4xl font-bold">Dashboard</div>
+      <div className=" bg-[#210F37]  text-white p-3 flex justify-between items-center">
+        {/* Professional Profile Generator */}
+        <div className="text-3xl font-bold">
+          <div className="">ProFileGen</div>
+          <div className="text-[12px] font-normal text-gray-300">Professional Profile Generator</div>
+        </div>
         <div className="mr-5">
           <NavLink
             to={"/home"}

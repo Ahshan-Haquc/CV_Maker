@@ -1,2 +1,7 @@
 //to download a perticular webpage as pdf
 npm install html2pdf.js
+color palate used:
+210F37
+4F1C51
+A55B4B
+DCA06D

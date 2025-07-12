@@ -13,6 +13,7 @@ import Education from "./components/dashboard/Education";
 import Acheivements from "./components/dashboard/Acheivements";
 import Activities from "./components/dashboard/Activities";
 import Reference from "./components/dashboard/Reference";
+import AddSection from "./components/dashboard/AddSection";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -23,6 +24,7 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import ViewFormalCV from "./components/ViewFormalCV";
 import ViewFormalCV2 from "./components/ViewFormalCV2";
 import ViewFormalCV3 from "./components/ViewFormalCV3";
+AddSection
 
 function App() {
   return (
@@ -49,6 +51,7 @@ function App() {
                     <Route path="acheivements" element={<Acheivements />} />
                     <Route path="activities" element={<Activities />} />
                     <Route path="reference" element={<Reference />} />
+                    <Route path="addSection" element={<AddSection/>}/>
                   </Route>
                 </Route>
                 <Route path="/viewFormalCV" element={<ViewFormalCV />} />

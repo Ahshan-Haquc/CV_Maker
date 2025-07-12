@@ -44,6 +44,14 @@ const UserCVSchema = mongoose.Schema({
             type:Object
         }
     ],
+    otherSection:[
+        //user can add section as per their need and can insert values
+        {
+            sectionName: String,
+            sectionValues:[{type: String}]
+        }
+    ]
+    ,
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
