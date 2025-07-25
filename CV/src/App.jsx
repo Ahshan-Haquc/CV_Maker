@@ -24,7 +24,8 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import ViewFormalCV from "./components/ViewFormalCV";
 import ViewFormalCV2 from "./components/ViewFormalCV2";
 import ViewFormalCV3 from "./components/ViewFormalCV3";
-AddSection
+
+import './assets/customStyle.css'
 
 function App() {
   return (
@@ -51,7 +52,7 @@ function App() {
                     <Route path="acheivements" element={<Acheivements />} />
                     <Route path="activities" element={<Activities />} />
                     <Route path="reference" element={<Reference />} />
-                    <Route path="addSection" element={<AddSection/>}/>
+                    <Route path="addSection" element={<AddSection />} />
                   </Route>
                 </Route>
                 <Route path="/viewFormalCV" element={<ViewFormalCV />} />

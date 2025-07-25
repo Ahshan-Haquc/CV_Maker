@@ -5,3 +5,6 @@ color palate used:
 4F1C51
 A55B4B
 DCA06D
+
+
+npm install tailwind-scrollbar
