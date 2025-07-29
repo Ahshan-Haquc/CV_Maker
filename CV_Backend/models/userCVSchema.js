@@ -1,5 +1,10 @@
 const mongoose = require('mongoose');
 
+const otherSectionSchema = new mongoose.Schema({
+    sectionName: String,
+    sectionValues: [String]
+}, { _id: false });
+
 const UserCVSchema = mongoose.Schema({
     name: {type:String, default:"Enter Your Name"},
     profession: {type:String, default:"Enter Your profession"},
@@ -44,19 +49,15 @@ const UserCVSchema = mongoose.Schema({
             type:Object
         }
     ],
-    otherSection:[
-        //user can add section as per their need and can insert values
-        {
-            sectionName: String,
-            sectionValues:[{type: String}]
-        }
-    ]
+    otherSection:[otherSectionSchema]
     ,
     userId:{
         type: mongoose.Schema.Types.ObjectId,
         ref: "users"
     }
 });
+
+
 
 const UserCVModel = mongoose.model("CV",UserCVSchema);
 module.exports=UserCVModel;

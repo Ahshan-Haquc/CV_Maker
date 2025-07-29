@@ -3,11 +3,9 @@ const Model = require('../models/userSchema');
 
 const userAccessPermission = async (req, res, next) => {
   try {
-    console.log("working on user access permis sion dfgdsraserwerwe");
     const cookieToken = req.cookies.userCookie;
-    console.log("cookie is : ", cookieToken);
+
     if (!cookieToken) {
-      console.log("No token in cookies");
       return res.status(401).json({ error: "Unauthorized access" });
     }
 
@@ -15,7 +13,6 @@ const userAccessPermission = async (req, res, next) => {
     const user = await Model.findOne({ _id: validUser._id });
 
     if (!user) {
-      console.log("User not found with token");
       return res.status(401).json({ error: "Unauthorized access" });
     }
 
