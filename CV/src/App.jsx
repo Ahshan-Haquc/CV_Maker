@@ -13,7 +13,7 @@ import Education from "./components/dashboard/Education";
 import Acheivements from "./components/dashboard/Acheivements";
 import Activities from "./components/dashboard/Activities";
 import Reference from "./components/dashboard/Reference";
-import AddSection from "./components/dashboard/AddSection";
+import AddNewSection from "./components/dashboard/AddNewSection";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -52,7 +52,7 @@ function App() {
                     <Route path="acheivements" element={<Acheivements />} />
                     <Route path="activities" element={<Activities />} />
                     <Route path="reference" element={<Reference />} />
-                    <Route path="addSection" element={<AddSection />} />
+                    <Route path="addSection" element={<AddNewSection />} />
                   </Route>
                 </Route>
                 <Route path="/viewFormalCV" element={<ViewFormalCV />} />

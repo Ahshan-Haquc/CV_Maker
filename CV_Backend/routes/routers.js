@@ -8,6 +8,7 @@ const userAccessPermission = require("../middleware/authUserPermision");
 const multer = require("multer");
 const path = require("path");
 
+
 const {addNewSection} = require('../controller/addContent')
 
 cvRouter.get("/",(req,res,next)=>{
@@ -412,6 +413,30 @@ cvRouter.post("/updateUserReference", async (req, res) => {
   }
 });
 
+cvRouter.post("/addNewSectionAgain", async (req, res) => {
+  const { userId, sectionName } = req.body; 
+  try {
+    const userCV = await CVmodel.findOne({ userId });
+
+    if (!userCV) {
+      return res.status(404).json({ message: "User CV not found" });
+    }
+
+    // Add new section to otherSection array
+    userCV.otherSection.push({ sectionName });
+
+    // Save the updated CV
+    const updatedCV = await userCV.save();
+
+    res.status(200).json({
+      message: "New section added successfully!",
+      updatedCV,
+    });
+  } catch (error) {
+    console.error("Error adding new section:", error);
+    res.status(500).json({ message: "Server error while adding new section" });
+  }
+});
 
 //delete from cv
 cvRouter.post("/deleteItems", async(req,res,next)=>{
@@ -448,6 +473,21 @@ cvRouter.post("/deleteItems", async(req,res,next)=>{
 })
 
 //add new section
-cvRouter.post("/addNewSection",userAccessPermission,addNewSection);
+cvRouter.post("/addNewSection",userAccessPermission,async (req,res,next)=>{
+  console.log("working now")
+    try {
+        console.log("working now")
+        const userCV = await CVmodel.findOne({userId : req.userInfo._id})
+        if(!userCV) return res.status(400).json({message:"New section not added!"})
+        
+        userCV.otherSection.push({sectionName: req.body.sectionName});
+        const updatedCV = await userCV.save();
+
+        res.status(200).json({updatedCV, message:"New section added!"})
+    } catch (error) {
+        console.log("catch is catching error : ",error);
+        next(error);
+    }
+});
 
 module.exports = cvRouter;
