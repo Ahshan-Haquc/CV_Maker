@@ -9,9 +9,9 @@ import { useUserCV } from "../context/UserCVContext";
 
 const RightSide = () => {
   const { userCV } = useUserCV();
-  useEffect(()=>{
+  useEffect(() => {
     console.log(userCV?.name);
-  },[])
+  }, [])
 
   return (
     <div className="w-full h-fit p-5 bg-white">
@@ -88,6 +88,26 @@ const RightSide = () => {
               );
             })}
           </ul>
+        </div>
+      )}
+
+      {/* Other sections */}
+      {userCV?.otherSection.length > 0 && (
+        <div className="text-black mt-8 h-fit">
+          {userCV?.otherSection.map((section, index) => {
+            return (
+              <>
+                <Title title={section.sectionName} pageName="rightSide" />
+                <div key={index} className=" py-4">
+                  <ul className="list-disc text-2xl  ml-8">
+                    {section.sectionValues.map((value, idx) => (
+                      <li key={idx}>{value}</li>
+                    ))}
+                  </ul>
+                </div>
+              </>
+            );
+          })}
         </div>
       )}
     </div>

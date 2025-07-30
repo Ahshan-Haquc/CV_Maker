@@ -8,7 +8,7 @@ const userAccessPermission = require("../middleware/authUserPermision");
 const multer = require("multer");
 const path = require("path");
 
-const {addNewSection} = require('../controller/addContent')
+const {addNewSection, deleteSection, addSectionValue, deleteSectionValue} = require('../controller/addContent')
 
 cvRouter.get("/",(req,res,next)=>{
     try {
@@ -449,5 +449,11 @@ cvRouter.post("/deleteItems", async(req,res,next)=>{
 
 //add new section
 cvRouter.post("/addNewSection",userAccessPermission,addNewSection);
+
+cvRouter.post("/deleteSection", userAccessPermission, deleteSection);
+
+cvRouter.post("/addSectionValue", userAccessPermission, addSectionValue);
+cvRouter.post("/deleteSectionValue", userAccessPermission, deleteSectionValue);
+
 
 module.exports = cvRouter;

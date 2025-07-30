@@ -137,7 +137,7 @@ const SideBar = () => {
           New Section
         </NavLink>
         <NavLink
-          to="/addSection"
+          to="/gsdt"
           className={({ isActive }) =>
             `flex items-center px-4 py-3 text-white text-lg font-medium rounded-md mx-2 my-1
            transition-colors duration-200 ease-in-out
@@ -145,7 +145,7 @@ const SideBar = () => {
           }
         >
           <i className="fa-solid fa-plus mr-3 text-xl"></i> {/* Changed icon for reference */}
-          New Section
+          New Section2
         </NavLink>
       </div>
     </div>

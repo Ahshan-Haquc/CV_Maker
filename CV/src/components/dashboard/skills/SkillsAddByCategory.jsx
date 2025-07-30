@@ -35,7 +35,7 @@ const SkillsAddByCategory = ({ category, values }) => {
 
   return (
     <div>
-      <div className="mt-4 text-lg p-1 bg-green-100">
+      <div className="mt-4 text-lg p-1 bg-gray-100">
         <i className="fa-solid fa-list"></i> {category}
       </div>
       <div className="py-3 flex flex-wrap gap-3">
