@@ -7,7 +7,7 @@ const SectionBox = ({ sectionName, order, onDelete, onOrderChange }) => {
             <div className="flex items-center justify-between">
                 <span className="text-lg font-semibold text-gray-800 mr-2">{sectionName}</span>
                 <button
-                    onClick={onDelete}
+                    onClick={() => onDelete(sectionName)}
                     className="text-red-500 hover:text-red-700 hover:cursor-pointer transition"
                 >
                     <Trash2 className="w-5 h-5" />

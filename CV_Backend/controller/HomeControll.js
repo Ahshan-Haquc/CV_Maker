@@ -2,8 +2,9 @@ const CVmodel = require("../models/userCVSchema")
 
 const deleteSectionData = async (req, res, next) => {
     try {
+        console.log("working here")
         const sectionName = req.body.sectionName;
-
+        console.log(sectionName)
         await CVmodel.updateOne(
             { userId: req.userInfo._id },
             { $set: { [sectionName]: [] } }

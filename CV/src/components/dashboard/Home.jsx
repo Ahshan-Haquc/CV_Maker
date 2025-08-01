@@ -2,6 +2,7 @@ import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
 import welcomeImage from "../../assets/Welcome.png";
 import { NavLink } from "react-router-dom";
+import axios from 'axios'
 
 // for lottie animation 
 import Lottie from "lottie-react";
@@ -10,7 +11,7 @@ import SectionBox from "./home/SectionBox";
 
 const Home = () => {
   const { user } = useAuthUser();
-  const { userCV } = useUserCV();
+  const { userCV, setUserCV } = useUserCV();
 
   const username = user?.email ? user.email.split("@")[0] : "";
 
@@ -24,6 +25,21 @@ const Home = () => {
     "otherSection"
   ];
 
+  const handleSectionDelete = async (sectionName) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/deleteMainSectionContentInside",
+        { sectionName },
+        { withCredentials: true }
+      );
+
+      const data = response.data;
+      alert(data.message);
+      setUserCV(data.updatedCV);
+    } catch (error) {
+      alert(error?.response?.data?.message || "Something went wrong");
+    }
+  };
 
 
   return (
@@ -97,7 +113,7 @@ const Home = () => {
                 sectionName={sectionName}
                 key={index}
                 order={3}
-                onDelete={() => console.log("Delete this box")}
+                onDelete={() => { handleSectionDelete(sectionName) }}
                 onOrderChange={(newOrder) => console.log("New order:", newOrder)}
               />
             )
