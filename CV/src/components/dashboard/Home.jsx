@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom";
 // for lottie animation 
 import Lottie from "lottie-react";
 import animationData from "../../assets/homePageAnimation.json";
+import SectionBox from "./home/SectionBox";
 
 const Home = () => {
   const { user } = useAuthUser();
@@ -13,8 +14,20 @@ const Home = () => {
 
   const username = user?.email ? user.email.split("@")[0] : "";
 
+  const knownArrayFields = [
+    "projects",
+    "experience",
+    "education",
+    "acheivement",
+    "activities",
+    "reference",
+    "otherSection"
+  ];
+
+
+
   return (
-    <div className="h-full w-full pb-30 flex flex flex-col justify-center items-center text-3xl">
+    <div className="h-full w-full pb-30 flex flex-col justify-center items-center  relative">
       <div className="flex  justify-center items-center">
         {/* <img src={welcomeImage} alt="Welcome" className="h-[200px] w-[200px] block" /> */}
         <div className="flex justify-center items-center ">
@@ -72,6 +85,27 @@ const Home = () => {
         </div>
 
       </div>
+
+      {/* customize section div  */}
+      <div className="w-full p-6 my-12 border border-gray-300 rounded-xl">
+        <h2 className="text-2xl font-bold mb-4">Delete Sections</h2>
+
+        <div className="flex flex-wrap gap-4">
+          {knownArrayFields.map((sectionName, index) => {
+            return (
+              <SectionBox
+                sectionName={sectionName}
+                key={index}
+                order={3}
+                onDelete={() => console.log("Delete this box")}
+                onOrderChange={(newOrder) => console.log("New order:", newOrder)}
+              />
+            )
+          })}
+
+        </div>
+      </div>
+
     </div>
   );
 };

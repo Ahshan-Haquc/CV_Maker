@@ -7,7 +7,9 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
 
-
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+dotenv.config();
 
 app.use(cors({
   origin: "http://localhost:5173",
@@ -15,13 +17,13 @@ app.use(cors({
 }));
 
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-dotenv.config();
-
 app.use("/uploads", express.static("uploads"));
 app.use('/', cvRouter);
 
+app.post('/test-body', (req, res) => {
+  console.log('req.body:', req.body);
+  res.json({ body: req.body });
+});
 
 
 // making connection with the server port by the env file 
