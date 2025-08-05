@@ -1,16 +1,24 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useUserCV } from "../context/UserCVContext";
 import { NavLink } from "react-router-dom";
 import jsPDF from "jspdf";
 import domtoimage from "dom-to-image";
+import Loading from "../commonComponents/Loading";
+import { loadingOnPageLoad } from "../controllers/loadingOnPageLoad";
 
 const ViewFormalCV = () => {
+  const [loading, setLoading] = useState(true);
+  const [loadingForDownloadPDF, setLoadingForDownloadPDF] = useState(false);
+
   const { userCV } = useUserCV();
   const printRef = useRef(null);
 
-  if (!userCV) return <p className="text-center text-xl">Loading...</p>;
+  if (!userCV) return <p className="text-center text-xl">No user cv founded.</p>;
 
+  //generate pdf and then download
   const handleDownloadPdf = async () => {
+    setLoadingForDownloadPDF(true);
+
     const element = printRef.current;
     const scale = 2;
 
@@ -54,6 +62,7 @@ const ViewFormalCV = () => {
             scaledImgHeight
           );
         }
+        setLoadingForDownloadPDF(false)
 
         pdf.save("cv.pdf");
       };
@@ -62,8 +71,17 @@ const ViewFormalCV = () => {
     }
   };
 
+  // for loading when someone first access in this page 
+  loadingOnPageLoad(setLoading);
+
   return (
     <>
+      {/* loading showing */}
+      {loading && <Loading loadingMessage="Generating CV..." />}
+
+      {/* generating pdf loading showing  */}
+      {loadingForDownloadPDF && <Loading loadingMessage="Generating PDF..." />}
+
       <div className="bg-gray-100 min-h-screen p-6">
         <div
           ref={printRef}

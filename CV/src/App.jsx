@@ -1,7 +1,6 @@
 // App.jsx
 import "./App.css";
 import ViewCV from "./components/ViewCV";
-import Dashboard from "./components/Dashboard";
 import Home from "./components/dashboard/Home";
 import Profile from "./components/dashboard/Profile";
 import Contact from "./components/dashboard/Contact";
@@ -23,9 +22,9 @@ import { SkillsProvider } from "./context/SkillsAddingContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 import ViewFormalCV from "./components/ViewFormalCV";
 import ViewFormalCV2 from "./components/ViewFormalCV2";
-import ViewFormalCV3 from "./components/ViewFormalCV3";
 
 import './assets/customStyle.css'
+import AppLayout from "./components/layout/AppLayout";
 
 function App() {
   return (
@@ -38,7 +37,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route element={<ProtectedRoute />}>
-                  <Route path="/" element={<Dashboard />}>
+                  <Route path="/" element={<AppLayout />}>
                     <Route path="home" element={<Home />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="contact" element={<Contact />} />
@@ -57,7 +56,6 @@ function App() {
                 </Route>
                 <Route path="/viewFormalCV" element={<ViewFormalCV />} />
                 <Route path="/viewFormalCV2" element={<ViewFormalCV2 />} />
-                <Route path="/viewFormalCV3" element={<ViewFormalCV3 />} />
                 <Route path="/viewCV" element={<ViewCV />} />
                 <Route
                   path="*"
