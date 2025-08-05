@@ -23,7 +23,6 @@ import { SkillsProvider } from "./context/SkillsAddingContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 import ViewFormalCV from "./components/ViewFormalCV";
 import ViewFormalCV2 from "./components/ViewFormalCV2";
-import ViewFormalCV3 from "./components/ViewFormalCV3";
 
 import './assets/customStyle.css'
 
@@ -57,7 +56,6 @@ function App() {
                 </Route>
                 <Route path="/viewFormalCV" element={<ViewFormalCV />} />
                 <Route path="/viewFormalCV2" element={<ViewFormalCV2 />} />
-                <Route path="/viewFormalCV3" element={<ViewFormalCV3 />} />
                 <Route path="/viewCV" element={<ViewCV />} />
                 <Route
                   path="*"
