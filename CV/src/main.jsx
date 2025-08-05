@@ -5,12 +5,15 @@ import App from "./App.jsx";
 import { AuthProvider } from "./context/AuthContext";
 import { ToastContainer, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { SideBarVisibleInPhoneProvider } from "./context/SideBarShowInPhone";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
+    <SideBarVisibleInPhoneProvider>
+      <AuthProvider>
+        <App />
+      </AuthProvider>
+    </SideBarVisibleInPhoneProvider>
     {/* showing toast alert notification */}
     <ToastContainer
       position="top-center"
