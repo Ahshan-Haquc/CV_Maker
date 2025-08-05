@@ -117,7 +117,6 @@ const AddSection = () => {
         </button>
       </div>
 
-
       <div className="grid grid-cols-2 gap-4">
         {userCV?.otherSection?.map((section, index) => (
           <div
