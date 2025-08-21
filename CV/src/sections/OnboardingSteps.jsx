@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const steps = [
     {
@@ -70,9 +72,13 @@ const responsive = {
 };
 
 const OnboardingSteps = () => {
+    // for animation 
+    useEffect(() => {
+        AOS.init({ duration: 1000 }); // animation speed (ms)
+    }, []);
     return (
-        <div className="w-full max-w-4xl mx-auto my-10 px-4 hidden md:block">
-            <h2 className="text-4xl font-extrabold text-center mb-8 text-gradient bg-gradient-to-r from-[#4F1C51] via-[#7B2FF2] to-[#F357A8] bg-clip-text text-transparent">
+        <div className="w-full max-w-4xl mx-auto my-10 px-4 hidden md:block" >
+            <h2 className="text-4xl font-extrabold text-center mb-8 text-gradient bg-gradient-to-r from-[#4F1C51] via-[#7B2FF2] to-[#F357A8] bg-clip-text text-transparent" data-aos="zoom-in" data-aos-delay="200">
                 How to Use ProFileGen
             </h2>
             <Carousel

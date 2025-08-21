@@ -98,7 +98,7 @@ const AddSection = () => {
   };
 
   return (
-    <div className="p-6 max-w-4xl ">
+    <div className="p-6 min-w-full max-w-4xl ">
       <h2 className="text-3xl font-bold mb-6 text-gray-800">Manage Custom Sections</h2>
 
       <div className="flex gap-3 mb-6">

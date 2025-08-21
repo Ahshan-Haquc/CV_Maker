@@ -3,6 +3,8 @@ import { useUserCV } from "../../context/UserCVContext";
 import welcomeImage from "../../assets/Welcome.png";
 import { NavLink } from "react-router-dom";
 import axios from 'axios'
+import AOS from "aos";
+import "aos/dist/aos.css";
 import { toast } from 'react-toastify';
 
 // for lottie animation 
@@ -10,7 +12,7 @@ import Lottie from "lottie-react";
 import animationData from "../../assets/homePageAnimation.json";
 
 import SectionBox from "./home/SectionBox";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loading from "../../commonComponents/Loading";
 import OnboardingSteps from "../../sections/OnboardingSteps";
 import Features from "../../commonComponents/Features";
@@ -53,6 +55,11 @@ const Home = () => {
   // for maintaining order count 
   let count = 0;
 
+  // for animation 
+  useEffect(() => {
+    AOS.init({ duration: 1000 }); // animation speed (ms)
+  }, []);
+
   return (
     <>
       {/* loading showing */}
@@ -60,7 +67,7 @@ const Home = () => {
       <div className="h-full w-full pb-4 flex flex-col justify-center items-center  relative">
 
         {/* title text  */}
-        <div className="flex flex-col lg:flex-row items-center justify-center w-full px-4 mt-6 gap-4">
+        <div className="flex flex-col lg:flex-row items-center justify-center w-full px-4 mt-6 gap-4" data-aos="zoom-in" data-aos-duration="8000">
           <Lottie
             animationData={animationData}
             className="h-[250px] w-[250px] sm:h-[300px] sm:w-[300px]"
@@ -82,6 +89,7 @@ const Home = () => {
       shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
       bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
       flex flex-col items-center justify-center space-y-3"
+              data-aos="fade-up" data-aos-duration="8000"
             >
               <i className="fas fa-file-alt text-3xl sm:text-4xl"></i>
               <span className="text-lg sm:text-xl text-center">Generate Formal CV</span>
@@ -93,6 +101,7 @@ const Home = () => {
       shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
       bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
       flex flex-col items-center justify-center space-y-3"
+              data-aos="fade-up" data-aos-duration="8000"
             >
               <i className="fas fa-align-left text-3xl sm:text-4xl"></i>
               <span className="text-lg sm:text-xl text-center">Generate One Column CV</span>
@@ -104,6 +113,7 @@ const Home = () => {
       shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
       bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
       flex flex-col items-center justify-center space-y-3"
+              data-aos="fade-up" data-aos-duration="8000"
             >
               <i className="fas fa-magic text-3xl sm:text-4xl"></i>
               <span className="text-lg sm:text-xl text-center">Generate Modern CV</span>
@@ -114,9 +124,9 @@ const Home = () => {
 
         {/* customize section div  */}
         <div className="w-full max-w-7xl px-4 py-2 md:py-6 my-10  rounded-xl">
-          <h2 className="text-4xl font-extrabold text-center mb-8 text-gradient bg-gradient-to-r from-[#4F1C51] via-[#7B2FF2] to-[#F357A8] bg-clip-text text-transparent">Customize Sections</h2>
+          <h2 className="text-4xl font-extrabold text-center mb-8 text-gradient bg-gradient-to-r from-[#4F1C51] via-[#7B2FF2] to-[#F357A8] bg-clip-text text-transparent" data-aos="zoom-in">Customize Sections</h2>
 
-          <div className="flex flex-wrap gap-4 justify-center ">
+          <div className="flex flex-wrap gap-4 justify-center " data-aos="zoom-in" data-aos-delay="200">
             {knownArrayFields.map((section, index) => {
               return (
                 section.willVisible === true && (

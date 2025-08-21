@@ -18,9 +18,9 @@ const AppLayout = () => {
     return (
         <div className="min-h-screen min-w-screen overflow-hidden">
             <NavBar />
-            <div className="flex  w-full relative top-0 left-0 ">
+            <div className="flex h-full w-full ">
                 <SideBar />
-                <div className="h-fit flex-grow ">
+                <div className="min-h-[calc(100vh-56px)] max-h-fit flex-grow relative">
                     <div className=" p-1 lg:p-6"><Outlet /></div>
                     <Footer />
                 </div>

@@ -28,7 +28,7 @@ const NavBar = () => {
     const { setIsSidebarVisible } = useSideBarVisible();
     const handleSideBar = () => { setIsSidebarVisible((prev) => !prev) }
     return (
-        <div className="w-full min-h-16 relative z-10">
+        <div className="w-full min-h-16 relative z-1">
             <div className="w-full h-16 bg-[#210F37]  text-white p-3 flex justify-between items-center fixed top-0 left-0">
                 {/* Professional Profile Generator */}
                 <div className="flex justify-center items-center">
