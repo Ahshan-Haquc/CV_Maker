@@ -25,6 +25,7 @@ import ViewFormalCV2 from "./components/ViewFormalCV2";
 
 import './assets/customStyle.css'
 import AppLayout from "./components/layout/AppLayout";
+import SignupAdmin from "./pages/signupAdmin";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
+                <Route path="/abc/adminSignup" element={<SignupAdmin />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/" element={<AppLayout />}>
                     <Route path="home" element={<Home />} />
