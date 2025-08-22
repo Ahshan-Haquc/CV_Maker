@@ -11,6 +11,7 @@ const path = require("path");
 
 const {addNewSection, deleteSection, addSectionValue, deleteSectionValue} = require('../controller/addContent');
 const { deleteSectionData } = require('../controller/HomeControll');
+const { adminSignup } = require('../controller/auth');
 
 
 cvRouter.get("/",(req,res,next)=>{
@@ -51,7 +52,7 @@ cvRouter.post("/userSignup",async(req,res,next)=>{
     }
 })
 
-
+cvRouter.post("/auth/admin/signup",adminSignup)
 
 cvRouter.post("/userLogin", async (req, res) => {
   const { email, password } = req.body;
