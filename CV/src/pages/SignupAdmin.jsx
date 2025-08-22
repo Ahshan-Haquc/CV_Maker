@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
+import axiosInstance from "../api/axiosInstance";
 
 const SignupAdmin = () => {
     const [input, setInput] = useState({ email: "", password: "", confirmPassword: "" });
@@ -13,17 +14,39 @@ const SignupAdmin = () => {
         }))
     }
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (!input.email || !input.password || !input.confirmPassword) {
-            toastShow("You have to fill all fields")
+    const handleSubmit = async (e) => {
+        try {
+            e.preventDefault();
+            // validating form 
+            if (!input.email || !input.password || !input.confirmPassword) {
+                toastShow("You have to fill all fields", "error")
+            }
+            input.password.length < 8 && toastShow("Minimum 8 digit password is required.");
+            input.password !== input.confirmPassword && toastShow("Password is not matched");
+
+
+            // calling api 
+            const response = await axiosInstance.post("/auth/admin/signup", {
+                email: input.email,
+                password: input.password
+            });
+            console.log(response.data.message);
+            if (response.data.success) {
+                toastShow(response.data.message, "success");
+            } else {
+                toastShow(response.data.message, "error");
+            }
+
+
+        } catch (error) {
+            console.log(error);
+            toastShow("Something went wrong", "error")
+
         }
-        input.password.length < 8 && toastShow("Minimum 8 digit password is required.");
-        input.password !== input.confirmPassword && toastShow("Password is not matched");
     }
 
-    const toastShow = (message) => {
-        toast.error(message, {
+    const toastShow = (message, type) => {
+        const values = {
             position: "top-center",
             autoClose: 4000,
             hideProgressBar: false,
@@ -32,14 +55,20 @@ const SignupAdmin = () => {
             draggable: true,
             progress: undefined,
             theme: "dark",
-        });
+        };
+
+        if (type === "error") {
+            toast.error(message, values);
+        } else {
+            toast.success(message, values);
+        }
     }
 
     return (
         <>
             <div className="h-screen w-screen flex justify-center items-center center">
                 <div className="h-[300px] md:h-[400px] w-[350px] md:w-[400px] p-4 bg-white border border-gray-200 rounded-lg shadow-lg flex flex-col items-center justify-evenly">
-                    <h1 className="text-center text-2xl font-bold mb-4">Admin Sign Up</h1>
+                    <h1 className="text-center text-2xl font-bold mb-4">Admin Sign Up dfe dfgr</h1>
                     <form
                         method="post"
                         onSubmit={handleSubmit}
@@ -53,7 +82,6 @@ const SignupAdmin = () => {
                             name="email"
                             onChange={handleInput}
                         />
-                        <p className="text-red-600 text-sm text-left w-full">invalid email</p>
                         <input
                             type="password"
                             placeholder="Password"
