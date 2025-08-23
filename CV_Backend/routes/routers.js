@@ -80,6 +80,7 @@ cvRouter.post("/userLogin", async (req, res) => {
       user: {
         _id: user._id,
         email: user.email,
+        role: user.role
       },
     });
   } catch (err) {
