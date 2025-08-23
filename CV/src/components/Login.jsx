@@ -34,13 +34,23 @@ const Login = () => {
         }),
       });
       const data = await response.json();
-      console.log("user", data.user);
+      console.log("user is : ", data);
       if (response.ok) {
-        alert("Login succesfull.");
+        console.log("w1")
+
         setUser(data.user); // Set user in context
+        console.log(user);
+        console.log("wx")
 
         //navigating to dashboard
-        navigate("/");
+        if (data.user.role === "admin") {
+          console.log("w2")
+          navigate("/adminDashboard");
+          console.log("w33")
+        } else {
+          console.log("w3333")
+          navigate("/");
+        }
       } else {
         alert("Login unsuccesful. Please try later!");
       }
