@@ -91,7 +91,7 @@ cvRouter.post("/userLogin", async (req, res) => {
 
 
 cvRouter.get("/userLogout", userAccessPermission, async (req, res, next) => {
-    console.log(req.userInfo.email);
+    console.log("Request recieved in logout router");
   try {
     const user = await UserModel.findOne({ _id: req.userInfo._id });
     console.log(user);
