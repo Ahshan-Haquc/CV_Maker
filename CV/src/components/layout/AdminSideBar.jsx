@@ -6,8 +6,26 @@ import {
     Settings,
     LogOut,
 } from "lucide-react";
+import { useAuthUser } from '../../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import axiosInstance from '../../api/axiosInstance';
 
 const AdminSideBar = () => {
+    const { setUser } = useAuthUser();
+    const navigate = useNavigate();
+    const logout = async () => {
+        // const res = await fetch("http://localhost:3000/userLogout", {
+        //     method: "GET",
+        //     credentials: "include",
+        // });
+        const res = await axiosInstance.get('/userLogout');
+        if (res) {
+            setUser(null); // update context
+            navigate("/login");
+        } else {
+            alert("Logout unsuccessful");
+        }
+    };
     return (
         <aside className="w-64 bg-[#4F1C51] text-white flex flex-col">
             <div className="p-6 text-2xl font-bold ">
@@ -40,7 +58,7 @@ const AdminSideBar = () => {
                 </a>
             </nav>
             <div className="p-4">
-                <button className="flex items-center w-full p-2 rounded-lg hover:bg-purple-700">
+                <button className="flex items-center w-full p-2 rounded-lg hover:bg-purple-700 " onClick={logout}>
                     <LogOut className="mr-2 h-5 w-5" /> Logout
                 </button>
             </div>

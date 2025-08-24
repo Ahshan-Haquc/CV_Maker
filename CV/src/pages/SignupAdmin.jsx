@@ -5,6 +5,7 @@ import axiosInstance from "../api/axiosInstance";
 
 const SignupAdmin = () => {
     const [input, setInput] = useState({ email: "", password: "", confirmPassword: "" });
+    const navigate = useNavigate();
     const handleInput = (e) => {
         const name = e.target.name;
         const value = e.target.value;
@@ -33,6 +34,7 @@ const SignupAdmin = () => {
             console.log(response.data.message);
             if (response.data.success) {
                 toastShow(response.data.message, "success");
+                navigate('/login')
             } else {
                 toastShow(response.data.message, "error");
             }
