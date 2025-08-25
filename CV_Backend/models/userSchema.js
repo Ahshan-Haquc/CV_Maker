@@ -17,12 +17,17 @@ const UserSchema = mongoose.Schema({
       enum: ["user","admin"],
       default: "user"
     },
+    status:{
+      type: String,
+      enum: ["active", "inactive","blocked"],
+      default: "active"
+    },
     tokens:[{                            
         token:{
             type: String
         }
     }],
-},{timestamp: true});
+},{timestamps: true});
 
 // Method to generate JWT token
 UserSchema.methods.generateToken = async function () {

@@ -21,10 +21,30 @@ const ManageUsers = () => {
 
     return (
         <div className="flex h-screen w-screen bg-gray-100">
-            <AdminSideBar />
             <div className="flex-1 p-6 overflow-y-auto">
                 {/* Header */}
                 <h2 className="text-2xl font-bold text-[#4F1C51] mb-6">Manage Users</h2>
+
+                {/* Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                    <div className="bg-white shadow rounded-xl p-6">
+                        <h2 className="text-gray-500">Total Users</h2>
+                        <p className="text-3xl font-bold">1,250</p>
+                    </div>
+                    <div className="bg-white shadow rounded-xl p-6">
+                        <h2 className="text-gray-500">Active Users</h2>
+                        <p className="text-3xl font-bold">450</p>
+                    </div>
+                    <div className="bg-white shadow rounded-xl p-6">
+                        <h2 className="text-gray-500">Inactive Users</h2>
+                        <p className="text-3xl font-bold">50</p>
+                    </div>
+                    <div className="bg-white shadow rounded-xl p-6">
+                        <h2 className="text-gray-500">Blocked Users</h2>
+                        <p className="text-3xl font-bold">30</p>
+                    </div>
+
+                </div>
 
                 {/* Search Bar */}
                 <div className="flex items-center bg-white rounded-lg shadow-md p-3 mb-6 w-full max-w-md">

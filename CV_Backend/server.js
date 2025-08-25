@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const cvRouter = require('./routes/routers')
+const adminRouter = require('./routes/adminRouters')
 const databaseConnect = require('./config/databaseConnect')
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
@@ -20,6 +21,7 @@ app.use(cors({
 
 app.use("/uploads", express.static("uploads"));
 app.use('/', cvRouter);
+app.use('/admin', adminRouter);
 
 app.post('/test-body', (req, res) => {
   console.log('req.body:', req.body);
@@ -33,8 +35,9 @@ const port = process.env.PORT || 3000;
 // making connection with database 
 databaseConnect();
 
+
 app.use(errorHandler);
 
 app.listen(port,()=>{
-    console.log("Listening on port: ",port);
+    console.log("Listening sdf on port: ",port);
 })
