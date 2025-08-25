@@ -27,6 +27,8 @@ import './assets/customStyle.css'
 import AppLayout from "./components/layout/AppLayout";
 import SignupAdmin from "./pages/signupAdmin";
 import AdminManageUsers from "./pages/AdminManageUsers";
+import AdminLayout from "./components/layout/AdminLayout";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -55,10 +57,13 @@ function App() {
                     <Route path="activities" element={<Activities />} />
                     <Route path="reference" element={<Reference />} />
                     <Route path="addSection" element={<AddSection />} />
-                    {/* for admin dashboard */}
                   </Route>
                 </Route>
-                <Route path="/adminDashboard" element={<AdminManageUsers />} />
+                {/* for admin dashboard */}
+                <Route path="/adminDashboard" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="adminManageUsers" element={<AdminManageUsers />} />
+                </Route>
                 <Route path="/viewFormalCV" element={<ViewFormalCV />} />
                 <Route path="/viewFormalCV2" element={<ViewFormalCV2 />} />
                 <Route path="/viewCV" element={<ViewCV />} />
