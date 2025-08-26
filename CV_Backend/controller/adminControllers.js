@@ -106,5 +106,25 @@ const unblockUser = async(req, res)=>{
     }
 }
 
+const updateUser = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { name, email, role, status } = req.body;
 
-module.exports = { fetchAdminDashboard, fetchManageUsersData, deleteUser, blockUser, unblockUser };
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      id,
+      { name, email, role, status },
+      { new: true }
+    );
+
+    if (!updatedUser) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    res.json({ success: true, user: updatedUser });
+  } catch (error) {
+    catchErrorSentInErrorHandler();
+  }
+};
+
+module.exports = { fetchAdminDashboard, fetchManageUsersData, updateUser, deleteUser, blockUser, unblockUser };
