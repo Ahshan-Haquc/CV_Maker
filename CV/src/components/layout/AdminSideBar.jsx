@@ -14,10 +14,6 @@ const AdminSideBar = () => {
     const { setUser } = useAuthUser();
     const navigate = useNavigate();
     const logout = async () => {
-        // const res = await fetch("http://localhost:3000/userLogout", {
-        //     method: "GET",
-        //     credentials: "include",
-        // });
         const res = await axiosInstance.get('/userLogout');
         if (res) {
             setUser(null); // update context
@@ -29,18 +25,24 @@ const AdminSideBar = () => {
     return (
         <aside className="min-w-64 bg-[#210F37] text-white flex flex-col">
             <div className="p-6 text-2xl font-bold ">
-                Admin Panel
+                ProFileGen <br /><span className='text-md font-normal'>Admin Panel</span>
             </div>
             <nav className="flex-1 p-4 space-y-2">
                 <NavLink
                     to="/adminDashboard"
-                    className="flex items-center p-2 rounded-lg hover:bg-[#4F1C51]"
+                    className={({ isActive }) =>
+                        `${isActive ? "bg-[#4F1C51] text-white" : ""} 
+     flex items-center p-2 rounded-lg hover:bg-[#4F1C51] hover:text-white transition`
+                    }
                 >
                     <LayoutDashboard className="mr-2 h-5 w-5" /> Dashboard
                 </NavLink>
                 <NavLink
                     to="/adminDashboard/adminManageUsers"
-                    className="flex items-center p-2 rounded-lg hover:bg-[#4F1C51]"
+                    className={({ isActive }) =>
+                        `${isActive ? "bg-[#4F1C51] text-white" : ""} 
+     flex items-center p-2 rounded-lg hover:bg-[#4F1C51] hover:text-white transition`
+                    }
                 >
                     <Users className="mr-2 h-5 w-5" /> Manage Users
                 </NavLink>
@@ -61,7 +63,7 @@ const AdminSideBar = () => {
                     <LogOut className="mr-2 h-5 w-5" /> Logout
                 </button>
             </div>
-        </aside>
+        </aside >
     );
 };
 

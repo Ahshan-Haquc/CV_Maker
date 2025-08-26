@@ -4,6 +4,11 @@ dotenv.config();
 const jwt= require('jsonwebtoken');
 
 const UserSchema = mongoose.Schema({
+    name:{
+      type: String,
+      require: true,
+      default: "User"
+    },
     email:{
         type: String,
         require: true
