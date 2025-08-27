@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Search, Edit, Trash2, Ban, Users } from "lucide-react";
 import axiosInstance from "../api/axiosInstance";
 import { deleteUser, blockUser, unblockUser } from "../api/adminActions";
+import toastShow from '../utils/toastShow'
 
 const ManageUsers = () => {
     const [search, setSearch] = useState("");
@@ -32,7 +33,7 @@ const ManageUsers = () => {
             }
         };
         fetchDataFromDB();
-    }, []);
+    });
 
     // Filter users by search text
     const filteredUsers = fetchedUsersData.filter(
@@ -65,9 +66,8 @@ const ManageUsers = () => {
         try {
             const res = await axiosInstance.put(`/admin/updateUser/${editUser.id}`, formData);
             if (res.data.success) {
-                alert("User updated!");
-                setfetchedUsersData(users.map(u => u._id === editUser._id ? res.data.user : u));
                 setEditUser(null); // close modal
+                toastShow("User information updated succesfully.", "success");
             }
         } catch (error) {
             console.error("Error updating user:", error);
@@ -163,7 +163,7 @@ const ManageUsers = () => {
                                             </button>
                                             <button
                                                 className="p-2 bg-yellow-50 hover:bg-yellow-100 rounded-lg"
-                                                title="Block User"
+                                                title={user.status === "active" ? "Block User" : "Unblock User"}
                                                 onClick={() => { user.status === "active" ? blockUser(user.id) : unblockUser(user.id) }}
                                             >
                                                 <Ban className="text-yellow-600" size={18} />

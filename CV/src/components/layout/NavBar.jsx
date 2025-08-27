@@ -45,21 +45,21 @@ const NavBar = () => {
                         <div className="text-[12px] font-normal text-gray-300">Dashboard</div>
                     </div>
                 </div>
-                <div className="mr-5">
+                <div className="mr-5 flex gap-3">
                     <NavLink
                         to={"/home"}
-                        className="mr-5 p-2  rounded-full hover:bg-[#ff8757] duration-500"
+                        className=" h-10 w-10 rounded-full hover:bg-[#ff8757] duration-500 flex justify-center items-center"
                     >
                         <i className="fa-solid fa-eye"></i>
                     </NavLink>
                     <button
-                        className="mr-5 p-2  rounded-full hover:bg-[#ff8757] duration-500 "
+                        className=" h-10 w-10 rounded-full hover:bg-[#ff8757] hover:cursor-pointer duration-500 flex justify-center items-center"
                         onClick={handleTheme}
                     >
                         <MdLightMode size={20} />
                     </button>
                     <button
-                        className="p-2  rounded-full hover:bg-[#ff8757] duration-500"
+                        className=" h-10 w-10 rounded-full hover:bg-[#ff8757] hover:cursor-pointer duration-500 flex justify-center items-center"
                         onClick={logout}
                     >
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>

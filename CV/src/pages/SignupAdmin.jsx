@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
 import axiosInstance from "../api/axiosInstance";
+import toastShow from "../utils/toastShow";
 
 const SignupAdmin = () => {
     const [input, setInput] = useState({ email: "", password: "", confirmPassword: "" });
@@ -44,25 +44,6 @@ const SignupAdmin = () => {
             console.log(error);
             toastShow("Something went wrong", "error")
 
-        }
-    }
-
-    const toastShow = (message, type) => {
-        const values = {
-            position: "top-center",
-            autoClose: 4000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        };
-
-        if (type === "error") {
-            toast.error(message, values);
-        } else {
-            toast.success(message, values);
         }
     }
 

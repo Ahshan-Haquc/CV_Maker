@@ -24,8 +24,8 @@ const AdminSideBar = () => {
     };
     return (
         <aside className="min-w-64 bg-[#210F37] text-white flex flex-col">
-            <div className="p-6 text-2xl font-bold ">
-                ProFileGen <br /><span className='text-md font-normal'>Admin Panel</span>
+            <div className="p-6 text-2xl font-bold text-[#A55B4B]">
+                ProFileGen <br /><span className='text-lg font-normal text-white'>Admin Panel</span>
             </div>
             <nav className="flex-1 p-4 space-y-2">
                 <NavLink

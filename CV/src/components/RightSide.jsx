@@ -14,7 +14,7 @@ const RightSide = () => {
   }, [])
 
   return (
-    <div className="w-full h-fit p-5 bg-white">
+    <div className="w-full h-full flex-grow-1 p-5 bg-white">
       {/* name part  */}
       <div className="">
         <div className="text-6xl font-bold text-[#213448]">{userCV?.name}</div>
