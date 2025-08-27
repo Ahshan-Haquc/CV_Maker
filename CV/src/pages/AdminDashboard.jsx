@@ -3,6 +3,7 @@ import axiosInstance from "../api/axiosInstance";
 import { Users, FileText, Layout } from "lucide-react";
 import { MdOutlineDashboard } from "react-icons/md";
 
+
 const AdminDashboard = () => {
     const [dashboardData, setDashboardData] = useState({});
 
@@ -68,11 +69,9 @@ const AdminDashboard = () => {
             <div className="bg-white shadow-lg rounded-2xl p-6">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-xl font-bold text-gray-700">
-                        Recent Users <span className="text-gray-400 text-sm">(Last 30 days)</span>
+                        New Registered Users <span className="text-gray-400 text-sm">(Last 30 days)</span>
                     </h2>
-                    <button className="px-4 py-2 bg-[#A55B4B] text-white rounded-lg hover:bg-[#4F1C51] transition">
-                        View All
-                    </button>
+
                 </div>
 
                 <div className="overflow-x-auto">
