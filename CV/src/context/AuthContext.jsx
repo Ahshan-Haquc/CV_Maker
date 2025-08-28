@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await fetch("http://localhost:3000/me", {
+        const res = await fetch("https://profilegen-cv-maker.vercel.app/me", {
           method: "GET",
           credentials: "include",
         });

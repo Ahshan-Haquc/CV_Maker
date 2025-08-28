@@ -41,7 +41,7 @@ const Contact = () => {
   // submitting in backend
   const submitData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/updateUserContact", {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserContact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

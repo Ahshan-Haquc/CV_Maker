@@ -32,7 +32,7 @@ const Reference = () => {
   // Submit reference to backend
   const submitData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/updateUserReference", {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserReference", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

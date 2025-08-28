@@ -5,7 +5,7 @@ import { useUserCV } from "../../context/UserCVContext";
 
 const Experience = () => {
   const { user } = useAuthUser();
-    const { userCV, setUserCV } = useUserCV();
+  const { userCV, setUserCV } = useUserCV();
   const [contactValues, setContactValues] = useState({
     organizationName: "",
     organizationAddress: "",
@@ -15,9 +15,9 @@ const Experience = () => {
     jobDescription: "",
   });
 
-  useEffect(()=>{
-      console.log("Page updated");
-    },[userCV])
+  useEffect(() => {
+    console.log("Page updated");
+  }, [userCV])
 
   //handling input
   const handleInput = (e) => {
@@ -34,7 +34,7 @@ const Experience = () => {
   const submitData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/updateUserExperience",
+        "https://profilegen-cv-maker.vercel.app/updateUserExperience",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -143,7 +143,7 @@ const Experience = () => {
           Update
         </button>
       </div>
-<div className="text-2xl mt-8 text-red-700 font-bold mb-4">
+      <div className="text-2xl mt-8 text-red-700 font-bold mb-4">
         <i className="fas fa-trash-alt mr-2"></i>Delete Your Work Experience List
       </div>
       <div className="overflow-x-auto rounded-lg shadow-md">
@@ -176,9 +176,9 @@ const Experience = () => {
                   </td>
                   <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-700">
                     <button
-                    className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
+                      className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
                       onClick={() => deleteProject(user._id, "experience", index, setUserCV)}
-                        >
+                    >
                       Delete
                     </button>
 
@@ -189,7 +189,7 @@ const Experience = () => {
           </tbody>
         </table>
       </div>
-      
+
     </div>
   );
 };

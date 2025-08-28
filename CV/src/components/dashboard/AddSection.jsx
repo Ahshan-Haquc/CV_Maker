@@ -80,7 +80,7 @@ const AddSection = () => {
 
   const deleteSectionValue = async (sectionIndex, valueIndex) => {
     try {
-      const res = await fetch("http://localhost:3000/deleteSectionValue", {
+      const res = await fetch("https://profilegen-cv-maker.vercel.app/deleteSectionValue", {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

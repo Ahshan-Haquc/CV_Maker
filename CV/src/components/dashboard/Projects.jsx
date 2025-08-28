@@ -14,9 +14,9 @@ const Projects = () => {
     projectToolsAndTechnologies: "",
   });
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log("Page updated");
-  },[userCV])
+  }, [userCV])
 
   //handling input
   const handleInput = (e) => {
@@ -32,7 +32,7 @@ const Projects = () => {
   //submitting in backend
   const submitData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/updateUserProjects", {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserProjects", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -57,7 +57,7 @@ const Projects = () => {
   };
 
   //delete project
- 
+
   return (
     <div className="p-4 h-full min-w-full overflow-x-hidden">
       <div className="text-2xl text-blue-700 font-bold ">
@@ -127,11 +127,11 @@ const Projects = () => {
                   </td>
                   <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-700">
                     <button
-  className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
-  onClick={() => deleteProject(user._id, "projects", index, setUserCV)}
->
-  Delete
-</button>
+                      className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
+                      onClick={() => deleteProject(user._id, "projects", index, setUserCV)}
+                    >
+                      Delete
+                    </button>
 
                   </td>
                 </tr>

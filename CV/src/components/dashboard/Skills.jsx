@@ -9,109 +9,109 @@ const Skills = () => {
   const { skills } = useSkillsContext();
   const { setUserCV } = useUserCV();
 
-const frontendSkillNames = [
-  "HTML",
-  "CSS",
-  "JavaScript",
-  "TypeScript", // Increasingly popular
-  "React.js",
-  "Next.js",
-  "Vue.js", // Popular alternative to React/Angular
-  "Angular", // Another major framework
-  "Svelte", // Emerging popular framework
-  "jQuery", // Still widely used in many projects
-  "Tailwind CSS",
-  "Bootstrap", // Corrected spelling from 'Boostrap'
-  "Sass/SCSS", // CSS preprocessor
-  "Less", // Another CSS preprocessor
-  "Webpack", // Module bundler
-  "Vite", // Fast build tool
-];
+  const frontendSkillNames = [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "TypeScript", // Increasingly popular
+    "React.js",
+    "Next.js",
+    "Vue.js", // Popular alternative to React/Angular
+    "Angular", // Another major framework
+    "Svelte", // Emerging popular framework
+    "jQuery", // Still widely used in many projects
+    "Tailwind CSS",
+    "Bootstrap", // Corrected spelling from 'Boostrap'
+    "Sass/SCSS", // CSS preprocessor
+    "Less", // Another CSS preprocessor
+    "Webpack", // Module bundler
+    "Vite", // Fast build tool
+  ];
 
-const backendSkillNames = [
-  "Node.js",
-  "Express.js",
-  "NestJS", // Popular Node.js framework
-  "Koa.js", // Lightweight Node.js framework
-  "PHP",
-  "Laravel",
-  "Python",
-  "Django",
-  "Flask", // Python micro-framework
-  "Ruby on Rails", // Ruby framework
-  "Java (Spring Boot)", // Popular Java framework
-  "Go (Gin, Echo)", // Popular for high-performance APIs
-  "C# (.NET)", // Microsoft's framework
-  "GraphQL", // API query language
-];
+  const backendSkillNames = [
+    "Node.js",
+    "Express.js",
+    "NestJS", // Popular Node.js framework
+    "Koa.js", // Lightweight Node.js framework
+    "PHP",
+    "Laravel",
+    "Python",
+    "Django",
+    "Flask", // Python micro-framework
+    "Ruby on Rails", // Ruby framework
+    "Java (Spring Boot)", // Popular Java framework
+    "Go (Gin, Echo)", // Popular for high-performance APIs
+    "C# (.NET)", // Microsoft's framework
+    "GraphQL", // API query language
+  ];
 
-const uIuXNames = [
-  "Figma",
-  "Adobe XD", // Corrected spacing
-  "Canva",
-  "Sketch", // Popular for macOS users
-  "Adobe Photoshop", // For image manipulation in design
-  "Adobe Illustrator", // For vector graphics in design
-];
+  const uIuXNames = [
+    "Figma",
+    "Adobe XD", // Corrected spacing
+    "Canva",
+    "Sketch", // Popular for macOS users
+    "Adobe Photoshop", // For image manipulation in design
+    "Adobe Illustrator", // For vector graphics in design
+  ];
 
-const databaseNames = [
-  "MongoDB",
-  "MySQL",
-  "PostgreSQL",
-  "Redis", // In-memory data structure store, often used as a cache/message broker
-  "Cassandra", // NoSQL database for large-scale data
-  "Firebase Firestore", // Google's NoSQL cloud database
-  "AWS DynamoDB", // Amazon's NoSQL cloud database
-  "SQL Server", // Microsoft's relational database
-];
+  const databaseNames = [
+    "MongoDB",
+    "MySQL",
+    "PostgreSQL",
+    "Redis", // In-memory data structure store, often used as a cache/message broker
+    "Cassandra", // NoSQL database for large-scale data
+    "Firebase Firestore", // Google's NoSQL cloud database
+    "AWS DynamoDB", // Amazon's NoSQL cloud database
+    "SQL Server", // Microsoft's relational database
+  ];
 
-const toolsAndTechnologiesNames = [
-  "Postman",
-  "Git & GitHub",
-  "GitLab", // Alternative to GitHub
-  "Bitbucket", // Another Git repository hosting service
-  "Docker",
-  "Kubernetes", // Container orchestration
-  "OpenAI API", // For integrating AI
-  "VS Code", // Common IDE
-  "npm", // Node package manager
-  "Yarn", // Alternative package manager
-  "Jenkins", // CI/CD tool
-  "GitHub Actions", // CI/CD integrated with GitHub
-  "GitLab CI/CD", // CI/CD integrated with GitLab
-  "AWS (Amazon Web Services)", // Cloud platform
-  "Google Cloud Platform (GCP)", // Cloud platform
-  "Microsoft Azure", // Cloud platform
-  "Jira", // Project management tool
-  "Confluence", // Documentation tool
-  "Slack", // Communication tool
-  "Zoom", // Video conferencing
-  "Jest", // JavaScript testing framework
-  "React Testing Library", // React component testing
-  "Cypress", // End-to-end testing
-];
+  const toolsAndTechnologiesNames = [
+    "Postman",
+    "Git & GitHub",
+    "GitLab", // Alternative to GitHub
+    "Bitbucket", // Another Git repository hosting service
+    "Docker",
+    "Kubernetes", // Container orchestration
+    "OpenAI API", // For integrating AI
+    "VS Code", // Common IDE
+    "npm", // Node package manager
+    "Yarn", // Alternative package manager
+    "Jenkins", // CI/CD tool
+    "GitHub Actions", // CI/CD integrated with GitHub
+    "GitLab CI/CD", // CI/CD integrated with GitLab
+    "AWS (Amazon Web Services)", // Cloud platform
+    "Google Cloud Platform (GCP)", // Cloud platform
+    "Microsoft Azure", // Cloud platform
+    "Jira", // Project management tool
+    "Confluence", // Documentation tool
+    "Slack", // Communication tool
+    "Zoom", // Video conferencing
+    "Jest", // JavaScript testing framework
+    "React Testing Library", // React component testing
+    "Cypress", // End-to-end testing
+  ];
 
-const softSkillName = [
-  "Communication",
-  "Problem-Solving",
-  "Teamwork & Collaboration",
-  "Adaptability",
-  "Time Management",
-  "Critical Thinking",
-  "Attention to Detail",
-  "Creativity",
-  "Leadership",
-  "Presentation Skills",
-  "MS Office (Word, Excel, PowerPoint)", // Clarified MS Office
-  "Video Editing", // Corrected spelling
-  "2D Animation",
-  "Photo Editing",
-];
+  const softSkillName = [
+    "Communication",
+    "Problem-Solving",
+    "Teamwork & Collaboration",
+    "Adaptability",
+    "Time Management",
+    "Critical Thinking",
+    "Attention to Detail",
+    "Creativity",
+    "Leadership",
+    "Presentation Skills",
+    "MS Office (Word, Excel, PowerPoint)", // Clarified MS Office
+    "Video Editing", // Corrected spelling
+    "2D Animation",
+    "Photo Editing",
+  ];
 
   // Function for storing skills in db
   const submitData = async () => {
     try {
-      const response = await fetch("http://localhost:3000/updateUserSkills", {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserSkills", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

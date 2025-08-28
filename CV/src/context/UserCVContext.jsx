@@ -15,7 +15,7 @@ export const CVprovider = ({ children }) => {
       if (!user || !user._id) return;
 
       try {
-        const res = await fetch("http://localhost:3000/viewCV", {
+        const res = await fetch("https://profilegen-cv-maker.vercel.app/viewCV", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
