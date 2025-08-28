@@ -1,7 +1,7 @@
 // deleteItems.js
 export default async function deleteProject(userId, pageName, indexToDelete, setUserCV) {
   try {
-    const response = await fetch("http://localhost:3000/deleteItems", {
+    const response = await fetch("https://profilegen-cv-maker.vercel.app/deleteItems", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

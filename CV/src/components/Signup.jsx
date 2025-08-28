@@ -23,7 +23,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/userSignup", {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/userSignup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -23,7 +23,7 @@ const Description = () => {
   const submitData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:3000/updateUserDescription",
+        "https://profilegen-cv-maker.vercel.app/updateUserDescription",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

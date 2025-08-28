@@ -24,7 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:3000/userLogin", {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/userLogin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -36,19 +36,13 @@ const Login = () => {
       const data = await response.json();
       console.log("user is : ", data);
       if (response.ok) {
-        console.log("w1")
 
         setUser(data.user); // Set user in context
-        console.log(user);
-        console.log("wx")
 
         //navigating to dashboard
         if (data.user.role === "admin") {
-          console.log("w2")
           navigate("/adminDashboard");
-          console.log("w33")
         } else {
-          console.log("w3333")
           navigate("/");
         }
       } else {

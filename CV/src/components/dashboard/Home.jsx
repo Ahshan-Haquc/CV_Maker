@@ -38,7 +38,7 @@ const Home = () => {
   const handleSectionDelete = async (sectionName) => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/deleteMainSectionContentInside",
+        "https://profilegen-cv-maker.vercel.app/deleteMainSectionContentInside",
         { sectionName },
         { withCredentials: true }
       );
