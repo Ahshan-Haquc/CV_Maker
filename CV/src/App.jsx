@@ -25,7 +25,7 @@ import ViewFormalCV2 from "./components/ViewFormalCV2";
 
 import './assets/customStyle.css'
 import AppLayout from "./components/layout/AppLayout";
-import SignupAdmin from "./pages/signupAdmin";
+import SignupAdmin from "./pages/SignupAdmin";
 import AdminManageUsers from "./pages/AdminManageUsers";
 import AdminLayout from "./components/layout/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
