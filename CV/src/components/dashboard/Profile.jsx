@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react"; // Import useEffect
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext"; // Assuming you have this context for userCV data
+import toastShow from "../../utils/toastShow";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAuthUser();
   const { userCV } = useUserCV(); // Get userCV data
   const [inputValue, setInputValue] = useState({ name: "", profession: "" });
   const [image, setImage] = useState(null);
+  const navigate = useNavigate();
 
   // Use useEffect to set initial input values from userCV data
   useEffect(() => {
@@ -34,7 +37,7 @@ const Profile = () => {
     // or provide a way for the user to keep the existing image if not uploading a new one.
     // For now, I'll keep the existing check but be mindful of its impact on updates.
     if (!inputValue.name || !inputValue.profession || !image) {
-      alert("All fields including image are required.");
+      toastShow("All fields are required.", "error");
       return;
     }
 
@@ -48,20 +51,21 @@ const Profile = () => {
     }
 
     try {
-      const res = await fetch("https://profilegen-cv-maker.vercel.app/updateUserProfile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/updateUserProfile`, {
         method: "POST",
         body: formData,
       });
 
       const data = await res.json();
       if (res.ok) {
-        alert(data.message);
+        toastShow(data.message, "success");
+        navigate("/"); // Navigate to dashboard after successful update
       } else {
-        alert("Failed: " + data.message);
+        toastShow("Failed: " + data.message, "error");
       }
     } catch (error) {
       console.error(error);
-      alert("Upload error.");
+      toastShow("Upload error.", "error");
     }
   };
 

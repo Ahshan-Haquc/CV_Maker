@@ -10,12 +10,11 @@ export const CVprovider = ({ children }) => {
   const [userCV, setUserCV] = useState(null);
 
   useEffect(() => {
-    console.log("user in cv is :", user);
     const fetchUserCV = async () => {
       if (!user || !user._id) return;
 
       try {
-        const res = await fetch("https://profilegen-cv-maker.vercel.app/viewCV", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/viewCV`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           credentials: "include",
@@ -25,7 +24,6 @@ export const CVprovider = ({ children }) => {
         if (res.ok) {
           const data = await res.json();
           setUserCV(data.userCV);
-          console.log("user cv is: now :", userCV);
         } else {
           console.error("Failed to fetch user CV");
         }

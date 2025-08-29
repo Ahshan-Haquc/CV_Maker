@@ -23,7 +23,7 @@ const Description = () => {
   const submitData = async () => {
     try {
       const response = await fetch(
-        "https://profilegen-cv-maker.vercel.app/updateUserDescription",
+        `${import.meta.env.VITE_API_URL}/updateUserDescription`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

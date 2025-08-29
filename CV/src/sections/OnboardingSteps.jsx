@@ -92,7 +92,7 @@ const OnboardingSteps = () => {
                 {steps.map((step, index) => (
                     <div
                         key={index}
-                        className="bg-white p-8 md:p-12  border border-gray-100 rounded-2xl flex flex-col items-center text-center transition-all duration-500 hover:scale-105 relative"
+                        className="bg-white p-8 md:p-12  border border-gray-100 rounded-2xl flex flex-col items-center text-center transition-all duration-500 relative"
                     >
                         <div className="absolute top-4 right-4 bg-gradient-to-r from-indigo-500 to-pink-500 text-white px-4 py-1 rounded-full text-sm font-semibold shadow-lg">
                             {`Step ${index + 1}`}
