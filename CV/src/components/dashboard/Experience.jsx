@@ -34,7 +34,7 @@ const Experience = () => {
   const submitData = async () => {
     try {
       const response = await fetch(
-        "https://profilegen-cv-maker.vercel.app/updateUserExperience",
+        `${import.meta.env.VITE_API_URL}/updateUserExperience`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

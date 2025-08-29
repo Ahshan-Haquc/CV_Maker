@@ -14,7 +14,7 @@ const AddSection = () => {
   const submitData = async () => {
     if (!formValue.trim()) return alert("Section name required");
     try {
-      const res = await fetch("http://localhost:3000/addNewSection", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/addNewSection`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -34,7 +34,7 @@ const AddSection = () => {
 
   const deleteSection = async (index) => {
     try {
-      const response = await fetch("http://localhost:3000/deleteSection", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/deleteSection`, {
         method: "POST",
         credentials: "include",
         headers: {
@@ -60,7 +60,7 @@ const AddSection = () => {
   const submitSectionValue = async (index) => {
     if (!newContentInput.trim()) return alert("Text is empty");
     try {
-      const res = await fetch("http://localhost:3000/addSectionValue", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/addSectionValue`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
@@ -80,7 +80,7 @@ const AddSection = () => {
 
   const deleteSectionValue = async (sectionIndex, valueIndex) => {
     try {
-      const res = await fetch("https://profilegen-cv-maker.vercel.app/deleteSectionValue", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/deleteSectionValue`, {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },

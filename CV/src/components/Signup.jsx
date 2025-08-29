@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "../App.css";
+import toastShow from "../utils/toastShow";
 const Signup = () => {
   // State to hold user input
   const [user, setUser] = useState({ email: "", password: "" });
@@ -23,7 +24,7 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://profilegen-cv-maker.vercel.app/userSignup", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/userSignup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -35,14 +36,14 @@ const Signup = () => {
 
       const data = await response.json();
       if (response.ok) {
-        alert("Signup successful!");
+        toastShow("Signup successful!", "success");
         navigate("/login");
       } else {
-        alert(data.error || "Signup failed. Please try again.");
+        toastShow(data.error || "Signup failed. Please try again.", "error");
       }
     } catch (error) {
       console.error("Error during signup:", error);
-      alert("An error occurred during signup. Please try again.");
+      toastShow("An error occurred during signup. Please try again.", "error");
     }
   };
 
