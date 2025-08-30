@@ -20,7 +20,7 @@ const Login = () => {
     value = e.target.value;
     setFormUser({ ...formUser, [keyName]: value });
   };
-  const API = "https://profilegen-cv-maker.vercel.app";
+  const API = "https://profilegen-cv-maker.vercel.app/";
   // Handle login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
