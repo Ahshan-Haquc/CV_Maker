@@ -25,7 +25,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/userLogin`, {
+      const response = await fetch("https://profilegen-cv-maker.vercel.app/userLogin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -35,22 +35,27 @@ const Login = () => {
         }),
       });
 
+      console.log("response came in login is : ", response);
       const data = await response.json();
+      console.log("w1")
       if (response.ok) {
-
+        console.log("w2")
         setUser(data.user); // Set user in context
 
         //navigating to dashboard
         if (data.user.role === "admin") {
+          console.log("w3")
           navigate("/adminDashboard");
         } else {
+          console.log("w4")
           navigate("/");
         }
       } else {
+        console.log("w5")
         toastShow("Login unsuccessful. Please try later!", "error");
       }
     } catch (err) {
-      console.error("Login error:", err);
+      console.log("Login error in frontend :", err);
       toastShow("Login catch error.", "error");
     }
   };
