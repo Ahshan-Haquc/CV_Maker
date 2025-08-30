@@ -24,6 +24,7 @@ const Login = () => {
   // Handle login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("working here");
     try {
       const response = await fetch("https://profilegen-cv-maker.vercel.app/userLogin", {
         method: "POST",

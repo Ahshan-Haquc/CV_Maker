@@ -16,7 +16,7 @@ dotenv.config();
 app.use(cors({
   origin: [
     //"http://localhost:5173", // local frontend
-    "https://profilegen-cv-maker-frontend.vercel.app/" // deployed frontend
+    "https://profilegen-cv-maker-frontend.vercel.app" // deployed frontend
   ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
