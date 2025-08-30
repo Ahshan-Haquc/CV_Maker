@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
+import toastShow from "../../utils/toastShow";
+import { useNavigate } from "react-router-dom";
 
 const Contact = () => {
   const { user } = useAuthUser();
   const { userCV } = useUserCV();
+  const navigate = useNavigate();
   const [contactValues, setContactValues] = useState({
     phoneNumber: "",
     emailId: "",
@@ -41,7 +44,7 @@ const Contact = () => {
   // submitting in backend
   const submitData = async () => {
     try {
-      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserContact", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/updateUserContact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -55,13 +58,14 @@ const Contact = () => {
         }),
       });
       if (response.ok) {
-        alert("Updated successfully!"); // Corrected typo
+        toastShow("Updated successfully!", "success");
+        navigate("/"); // Navigate to dashboard after successful update
       } else {
-        alert("Update failed. Please try again.");
+        toastShow("Update failed. Please try again with filling all fields.", "error");
       }
     } catch (error) {
       console.error("Error in submission:", error); // Use console.error for errors
-      alert("Update failed due to a network error.");
+      toastShow("Update failed due to a network error.", "error");
     }
   };
 

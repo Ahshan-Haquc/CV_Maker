@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useAuthUser } from "../context/AuthContext";
 import "../App.css";
+import toastShow from "../utils/toastShow";
 const Login = () => {
   // State to hold user input
   const [formUser, setFormUser] = useState({ email: "", password: "" });
@@ -19,12 +20,12 @@ const Login = () => {
     value = e.target.value;
     setFormUser({ ...formUser, [keyName]: value });
   };
-
+  const API = "https://profilegen-cv-maker.vercel.app/";
   // Handle login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("https://profilegen-cv-maker.vercel.app/userLogin", {
+      const response = await fetch(`${API}/userLogin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -33,8 +34,8 @@ const Login = () => {
           password: formUser.password,
         }),
       });
+
       const data = await response.json();
-      console.log("user is : ", data);
       if (response.ok) {
 
         setUser(data.user); // Set user in context
@@ -46,11 +47,11 @@ const Login = () => {
           navigate("/");
         }
       } else {
-        alert("Login unsuccesful. Please try later!");
+        toastShow("Login unsuccessful. Please try later!", "error");
       }
     } catch (err) {
       console.error("Login error:", err);
-      alert("Login catch error.");
+      toastShow("Login catch error.", "error");
     }
   };
   return (

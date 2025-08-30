@@ -20,7 +20,7 @@ const Activities = () => {
   // Submit to backend
   const submitData = async () => {
     try {
-      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserActivities", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/updateUserActivities`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

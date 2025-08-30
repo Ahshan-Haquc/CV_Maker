@@ -111,7 +111,7 @@ const Skills = () => {
   // Function for storing skills in db
   const submitData = async () => {
     try {
-      const response = await fetch("https://profilegen-cv-maker.vercel.app/updateUserSkills", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/updateUserSkills`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

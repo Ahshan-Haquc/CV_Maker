@@ -13,16 +13,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-// app.use(cors({
-//   origin: "http://localhost:5173",
-//   credentials: true
-// }));
 app.use(cors({
-  origin: ["https://profilegen-cv-maker-frontend.vercel.app"],
+  origin: [
+    "http://localhost:5173", // local frontend
+    "https://profilegen-cv-maker-frontend.vercel.app" // deployed frontend
+  ],
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
   allowedHeaders: ["Content-Type", "Authorization"]
 }));
+
 
 
 app.use("/uploads", express.static("uploads"));
@@ -45,5 +45,5 @@ databaseConnect();
 app.use(errorHandler);
 
 app.listen(port,()=>{
-    console.log("Listening sdf on port: ",port);
+    console.log("Server running on port: ",port);
 })

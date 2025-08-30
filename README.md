@@ -1,3 +1,5 @@
+live project link : https://profilegen-cv-maker-frontend.vercel.app/
+
 //to download a perticular webpage as pdf
 npm install html2pdf.js
 color palate used:

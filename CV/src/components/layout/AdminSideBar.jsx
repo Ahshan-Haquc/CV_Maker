@@ -30,6 +30,7 @@ const AdminSideBar = () => {
             <nav className="flex-1 p-4 space-y-2">
                 <NavLink
                     to="/adminDashboard"
+                    end
                     className={({ isActive }) =>
                         `${isActive ? "bg-[#4F1C51] text-white" : ""} 
      flex items-center p-2 rounded-lg hover:bg-[#4F1C51] hover:text-white transition`

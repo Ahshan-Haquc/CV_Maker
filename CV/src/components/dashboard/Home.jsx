@@ -34,11 +34,12 @@ const Home = () => {
     { name: "reference", willVisible: userCV?.reference?.length > 0 ? true : false },
     { name: "otherSection", willVisible: userCV?.otherSection?.length > 0 ? true : false }
   ];
+  const [isKnownArrayFieldsWillShow, setIsKnownArrayFieldsWillShow] = useState(true);
 
   const handleSectionDelete = async (sectionName) => {
     try {
       const response = await axios.post(
-        "https://profilegen-cv-maker.vercel.app/deleteMainSectionContentInside",
+        `${import.meta.env.VITE_API_URL}/deleteMainSectionContentInside`,
         { sectionName },
         { withCredentials: true }
       );
@@ -51,6 +52,12 @@ const Home = () => {
       toast.error(error?.response?.data?.message || "Something went wrong in catch");
     }
   };
+
+  // Example: check if ANY section is visible
+  useEffect(() => {
+    const anyVisible = knownArrayFields.some(section => section.willVisible === true);
+    setIsKnownArrayFieldsWillShow(!anyVisible);
+  }, [knownArrayFields]);
 
   // for maintaining order count 
   let count = 0;
@@ -80,7 +87,7 @@ const Home = () => {
           </div>
         </div>
 
-        {/* box div */}
+        {/* templete box div */}
         <div className="w-full max-w-7xl p-4 ">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             <NavLink
@@ -125,6 +132,7 @@ const Home = () => {
         {/* customize section div  */}
         <div className="w-full max-w-7xl px-4 py-2 md:py-6 my-10  rounded-xl">
           <h2 className="text-4xl font-extrabold text-center mb-8 text-gradient bg-gradient-to-r from-[#4F1C51] via-[#7B2FF2] to-[#F357A8] bg-clip-text text-transparent" data-aos="zoom-in">Customize Sections</h2>
+          {isKnownArrayFieldsWillShow && (<p className="text-center text-sm text-gray-500 mb-4" data-aos="zoom-in" data-aos-delay="100">* Click on any section box and insert your info to edit its content</p>)}
 
           <div className="flex flex-wrap gap-4 justify-center " data-aos="zoom-in" data-aos-delay="200">
             {knownArrayFields.map((section, index) => {
@@ -139,6 +147,7 @@ const Home = () => {
                   />
                 )
               );
+
             })}
           </div>
         </div>
