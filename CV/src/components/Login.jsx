@@ -20,12 +20,12 @@ const Login = () => {
     value = e.target.value;
     setFormUser({ ...formUser, [keyName]: value });
   };
-
+  const API = "https://profilegen-cv-maker.vercel.app";
   // Handle login form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}/userLogin`, {
+      const response = await fetch(`${API}/userLogin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
