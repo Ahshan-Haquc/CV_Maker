@@ -26,7 +26,7 @@ const Login = () => {
     e.preventDefault();
     console.log("working here");
     try {
-      const response = await fetch("https://profilegen-cv-maker.vercel.app/userLogin", {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/userLogin`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -35,6 +35,17 @@ const Login = () => {
           password: formUser.password,
         }),
       });
+
+      // if i use this then project run in vercel
+      // const response = await fetch("https://profilegen-cv-maker.vercel.app/userLogin", {
+      //   method: "POST",
+      //   headers: { "Content-Type": "application/json" },
+      //   credentials: "include",
+      //   body: JSON.stringify({
+      //     email: formUser.email,
+      //     password: formUser.password,
+      //   }),
+      // });
 
       console.log("response came in login is : ", response);
       const data = await response.json();
