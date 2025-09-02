@@ -29,6 +29,7 @@ import SignupAdmin from "./pages/SignupAdmin";
 import AdminManageUsers from "./pages/AdminManageUsers";
 import AdminLayout from "./components/layout/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
+import CVDashboard from "./components/CVDashboard";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/abc/adminSignup" element={<SignupAdmin />} />
+                <Route path="/cvDashboard" element={<CVDashboard />} />
                 <Route element={<ProtectedRoute />}>
                   <Route path="/" element={<AppLayout />}>
                     <Route path="home" element={<Home />} />

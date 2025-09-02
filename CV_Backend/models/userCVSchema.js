@@ -1,63 +1,56 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const otherSectionSchema = new mongoose.Schema({
+const otherSectionSchema = new mongoose.Schema(
+  {
     sectionName: String,
-    sectionValues: [String]
-}, { _id: false });
+    sectionValues: [String],
+  },
+  { _id: false }
+);
 
-const UserCVSchema = mongoose.Schema({
-    name: {type:String, default:"Enter Your Name"},
-    profession: {type:String, default:"Enter Your profession"},
-    images:{type:String},
-    description: {type:String, default:"Enter Your description"},
-    phoneNumber: {type:String, default:"Enter Your phoneNumber"},
-    emailId: {type:String, default:"Enter Your emailId"},
-    linkedInId: {type:String, default:"Enter Your linkedInId"},
-    githubId: {type:String, default:"Enter Your githubId"},
-    portfolioLink: {type:String, default:"Enter Your portfolioLink"},
-    address: {type:String, default:"Enter Your address"},
-    skills:{
-        type: Object,
+const UserCVSchema = mongoose.Schema(
+  {
+    title: { type: String, default: "Untitled CV" }, // dashboard display
+    name: { type: String, default: "Enter Your Name" },
+    profession: { type: String, default: "Enter Your Profession" },
+    images: { type: String },
+    description: { type: String, default: "Enter Your Description" },
+    phoneNumber: { type: String, default: "Enter Your Phone Number" },
+    emailId: { type: String, default: "Enter Your Email" },
+    linkedInId: { type: String, default: "Enter Your LinkedIn" },
+    githubId: { type: String, default: "Enter Your GitHub" },
+    portfolioLink: { type: String, default: "Enter Your Portfolio Link" },
+    address: { type: String, default: "Enter Your Address" },
+
+    skills: { type: Object },
+
+    projects: [{ type: Object }],
+    experience: [{ type: Object }],
+    education: [{ type: Object }],
+    achievement: [{ type: String }],
+    activities: [{ type: String }],
+    reference: [{ type: Object }],
+    otherSection: [otherSectionSchema],
+
+    template: {
+      type: String,
+      enum: ["Formal", "OneColumn", "Modern"],
+      default: "Formal",
     },
-    projects:[
-        {
-            type:Object,
-        }
-    ],
-    experience:[
-        {
-            type:Object,
-        }
-    ],
-    education:[
-        {
-            type:Object,
-        }
-    ],
-    acheivement:[
-        {
-            type:String,
-        }
-    ],
-    activities:[
-        {
-            type:String,
-        }
-    ],
-    reference:[
-        {
-            type:Object
-        }
-    ],
-    otherSection:[otherSectionSchema]
-    ,
-    userId:{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "users"
-    }
-});
 
+    isFavorite: {
+      type: Boolean,
+      default: false,
+    },
 
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+  },
+  { timestamps: true }
+);
 
-const UserCVModel = mongoose.model("CV",UserCVSchema);
-module.exports=UserCVModel;
+const UserCVModel = mongoose.model("CV", UserCVSchema);
+module.exports = UserCVModel;

@@ -42,7 +42,7 @@ const NavBar = () => {
                     <div className="">
 
                         <div className="text-xl md:text-3xl font-bold">ProFileGen</div>
-                        <div className="text-[12px] font-normal text-gray-300">Dashboard</div>
+
                     </div>
                 </div>
                 <div className="mr-5 flex gap-3">
