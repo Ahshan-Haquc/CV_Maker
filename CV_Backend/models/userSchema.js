@@ -11,7 +11,7 @@ const UserSchema = mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true, // prevent duplicate users
+      unique: true, 
     },
     password: {
       type: String,
@@ -36,7 +36,7 @@ const UserSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-// 🔑 Method: generate JWT token
+// generating JWT token
 UserSchema.methods.generateToken = async function () {
   try {
     const userToken = jwt.sign(

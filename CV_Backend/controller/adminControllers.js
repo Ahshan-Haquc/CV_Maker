@@ -54,6 +54,7 @@ const fetchManageUsersData= async(req,res)=>{
                 name:element.name,
                 email:element.email,
                 status:element.status,
+                registrationDate:element.createdAt,
                 role:element.role
             })
         });

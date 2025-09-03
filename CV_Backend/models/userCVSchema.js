@@ -13,7 +13,7 @@ const UserCVSchema = mongoose.Schema(
     title: { type: String, default: "Untitled CV" }, // dashboard display
     name: { type: String, default: "Enter Your Name" },
     profession: { type: String, default: "Enter Your Profession" },
-    images: { type: String },
+    images: { type: String , default : "https://images.pexels.com/photos/8378733/pexels-photo-8378733.jpeg"},
     description: { type: String, default: "Enter Your Description" },
     phoneNumber: { type: String, default: "Enter Your Phone Number" },
     emailId: { type: String, default: "Enter Your Email" },

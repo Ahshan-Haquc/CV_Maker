@@ -27,13 +27,14 @@ const ManageUsers = () => {
                         totalBlockedUsers: response.data.totalBlockedUsers,
                     });
                     setfetchedUsersData(response.data.userData);
+
                 }
             } catch (error) {
                 console.log("error in frontend : ", error);
             }
         };
         fetchDataFromDB();
-    });
+    }, []);
 
     // Filter users by search text
     const filteredUsers = fetchedUsersData.filter(
@@ -121,6 +122,7 @@ const ManageUsers = () => {
                                     <th className="p-4">Name</th>
                                     <th className="p-4">Email</th>
                                     <th className="p-4">Role</th>
+                                    <th className="p-4">Registered</th>
                                     <th className="p-4">Status</th>
                                     <th className="p-4 text-center">Actions</th>
                                 </tr>
@@ -134,6 +136,7 @@ const ManageUsers = () => {
                                         <td className="p-4 font-medium">{user.name}</td>
                                         <td className="p-4">{user.email}</td>
                                         <td className="p-4">{user.role}</td>
+                                        <td className="p-4">{user.registrationDate.split('T')[0]}</td>
                                         <td className="p-4">
                                             <span
                                                 className={`px-3 py-1 text-xs font-semibold rounded-full ${user.status === "active"

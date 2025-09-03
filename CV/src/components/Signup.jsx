@@ -4,7 +4,7 @@ import "../App.css";
 import toastShow from "../utils/toastShow";
 const Signup = () => {
   // State to hold user input
-  const [user, setUser] = useState({ email: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "", name: "" });
   let keyName, value;
   const navigate = useNavigate();
 
@@ -30,6 +30,7 @@ const Signup = () => {
         body: JSON.stringify({
           email: user.email,
           password: user.password,
+          name: user.name,
         }),
         credentials: "include",
       });
@@ -56,6 +57,14 @@ const Signup = () => {
           onSubmit={handleSubmit}
           className="w-full flex flex-col items-center"
         >
+          <input
+            type="text"
+            placeholder="Name"
+            className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            required
+            name="name"
+            onChange={handleInput}
+          />
           <input
             type="email"
             placeholder="Email"

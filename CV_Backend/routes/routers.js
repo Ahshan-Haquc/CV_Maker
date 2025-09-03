@@ -10,6 +10,7 @@ const path = require("path");
 
 
 const {addNewSection, deleteSection, addSectionValue, deleteSectionValue} = require('../controller/addContent');
+const {fetchUserDashboardData, createNewCv, deleteUserCv, addToFavorite} = require('../controller/userController');
 const { deleteSectionData } = require('../controller/HomeControll');
 const { adminSignup } = require('../controller/auth');
 
@@ -26,25 +27,18 @@ cvRouter.get("/",(req,res,next)=>{
 cvRouter.post("/userSignup",async(req,res,next)=>{
     console.log("working on singup router 1")
     try {
-        console.log("working on singup router 1")
-        const {email, password} = req.body;
+        const {email, password, name} = req.body;
         if(!email || !password){
            return res.status(401).json({message:"Please enter email or password."})
         }
 
-        console.log(email, password);
         const encryptedPassword = await bcrypt.hash(password,10);
-        console.log(encryptedPassword);
+
         const NewUser = new UserModel({
-            email:email, password:encryptedPassword
+            email:email, password:encryptedPassword, name:name
         })
         const userInfo = await NewUser.save();
 
-        //initially making an empty cv collection only using this user id
-        const NewUserCV = new CVmodel({
-            userId: userInfo._id
-        });
-        await NewUserCV.save();
         
         res.status(200).json({message:"Signup succesfull."});
     } catch (error) {
@@ -500,5 +494,8 @@ cvRouter.post("/addSectionValue", userAccessPermission, addSectionValue);
 cvRouter.post("/deleteSectionValue", userAccessPermission, deleteSectionValue);
 
 cvRouter.post("/deleteMainSectionContentInside", userAccessPermission, deleteSectionData)
+
+cvRouter.get("/fetchUserDashboardData",userAccessPermission, fetchUserDashboardData)
+cvRouter.get("/createUserNewCv", userAccessPermission, createNewCv)
 
 module.exports = cvRouter;

@@ -46,23 +46,18 @@ const Login = () => {
       //   }),
       // });
 
-      console.log("response came in login is : ", response);
+
       const data = await response.json();
-      console.log("w1")
       if (response.ok) {
-        console.log("w2")
         setUser(data.user); // Set user in context
 
         //navigating to dashboard
         if (data.user.role === "admin") {
-          console.log("w3")
           navigate("/adminDashboard");
         } else {
-          console.log("w4")
-          navigate("/");
+          navigate("/cvDashboard");
         }
       } else {
-        console.log("w5")
         toastShow("Login unsuccessful. Please try later!", "error");
       }
     } catch (err) {

@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
     Plus,
     Search,
@@ -20,6 +20,9 @@ import {
 import NavBar from "./layout/NavBar";
 import Footer from "./layout/Footer";
 import { MdLightMode } from "react-icons/md";
+import axiosInstance from "../api/axiosInstance";
+import toastShow from "../utils/toastShow";
+import { useEffect } from "react";
 
 /**
  * Demo data (replace with your backend-driven list)
@@ -29,7 +32,7 @@ const demoCVs = [
     {
         id: "cv_01",
         title: "Web Developer — MERN",
-        template: "Modern",
+        template: "All Access",
         createdAt: "2025-01-20T10:00:00.000Z",
         updatedAt: "2025-02-17T08:20:00.000Z",
         isFavorite: true,
@@ -37,7 +40,7 @@ const demoCVs = [
     {
         id: "cv_02",
         title: "Backend Developer — Node.js",
-        template: "Formal",
+        template: "All Access",
         createdAt: "2025-02-01T12:00:00.000Z",
         updatedAt: "2025-02-15T09:40:00.000Z",
         isFavorite: false,
@@ -185,10 +188,26 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
 }
 
 export default function CVDashboard() {
+    const navigate = useNavigate()
+
     // Replace with your fetched list + setState
-    const [cvs, setCvs] = useState(demoCVs);
+    const [cvs, setCvs] = useState([]);
     const [query, setQuery] = useState("");
     const [sortBy, setSortBy] = useState("updated-desc"); // "created-asc" | "created-desc" | "updated-asc" | "updated-desc"
+
+    useEffect(() => {
+        const fetchDashboardData = async () => {
+            try {
+                const response = await axiosInstance.get('/fetchUserDashboardData')
+                if (response.data.success) {
+                    setCvs(response.data.userCVs);
+                }
+            } catch (error) {
+                toastShow("Dashboard data fetch failed", "error")
+            }
+        }
+        fetchDashboardData()
+    }, [])
 
     // Derived stats
     const total = cvs.length;
@@ -234,6 +253,22 @@ export default function CVDashboard() {
         alert(`Download requested for ${id}`);
     };
 
+    const createNewCv = async () => {
+        try {
+            const response = await axiosInstance.get('/createUserNewCv');
+            console.log("response is : ", response);
+            if (response.data.success) {
+                toastShow(response.data.message, "success");
+                navigate('/home')
+            } else {
+                toastShow(response.data.message, "error");
+            }
+        } catch (error) {
+            console.log(error);
+            toastShow(response.data.message, "error");
+        }
+    }
+
     return (
         <div className="flex flex-col w-full">
             {/* navbar  */}
@@ -270,13 +305,13 @@ export default function CVDashboard() {
                         </p>
                     </div>
 
-                    <NavLink
-                        to="/create"
+                    <button
                         className="inline-flex items-center gap-2 rounded-xl bg-[#4F1C51] duration-300 px-4 py-2.5 font-medium text-white shadow-sm hover:bg-black"
+                        onClick={createNewCv}
                     >
                         <Plus className="h-5 w-5" />
                         Create New CV
-                    </NavLink>
+                    </button>
                 </div>
 
                 {/* Stats */}
