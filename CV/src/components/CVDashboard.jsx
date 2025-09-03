@@ -72,10 +72,10 @@ const templates = [
     },
 ];
 
-function StatCard({ icon: Icon, label, value }) {
+function StatCard({ icon: Icon, label, value, clickToHandle }) {
     return (
-        <div className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition">
-            <div className="rounded-lg bg-gray-100 p-3">
+        <div className="flex items-center gap-4 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md hover:cursor-pointer transition" onClick={clickToHandle}>
+            <div className="rounded-lg bg-purple-100 p-3">
                 <Icon className="h-6 w-6 text-gray-700" />
             </div>
             <div>
@@ -93,8 +93,11 @@ function TemplateCard({ t }) {
             className={`group relative overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-lg transition`}
         >
             <div
-                className={`h-28 w-full bg-gradient-to-tr ${t.gradient} opacity-90`}
-            />
+                className={`h-28 w-full p-3 md:p-5 bg-gradient-to-tr ${t.gradient} opacity-90 flex justify-start items-end rounded-xl `}
+            >
+                <i className="fas fa-file-alt text-white text-5xl"></i>
+            </div>
+
             <div className="p-4">
                 <div className="flex items-center justify-between">
                     <div>
@@ -119,19 +122,19 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
             {/* Top row */}
             <div className="mb-3 flex items-start justify-between">
                 <div className="flex items-center gap-3">
-                    <div className="rounded-lg bg-gray-100 p-3">
+                    <div className="rounded-lg bg-purple-100 p-3">
                         <FileText className="h-6 w-6 text-gray-700" />
                     </div>
                     <div>
                         <div className="font-semibold text-gray-900">{cv.title}</div>
                         <div className="text-xs text-gray-500">
-                            Template: {cv.template}
+                            Template: All Permitted
                         </div>
                     </div>
                 </div>
 
                 <button
-                    onClick={() => onToggleFavorite(cv.id)}
+                    onClick={() => onToggleFavorite(cv._id)}
                     className="rounded-full p-2 hover:bg-gray-100"
                     title={cv.isFavorite ? "Unfavorite" : "Favorite"}
                 >
@@ -160,7 +163,7 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
                 </NavLink>
 
                 <NavLink
-                    to={`/preview/${cv.id}`}
+                    to={`/preview/${cv._id}`}
                     className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     <Eye className="h-4 w-4" />
@@ -168,7 +171,7 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
                 </NavLink>
 
                 <button
-                    onClick={() => onDownload(cv.id)}
+                    onClick={() => onDownload(cv._id)}
                     className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     <Download className="h-4 w-4" />
@@ -176,7 +179,7 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
                 </button>
 
                 <button
-                    onClick={() => onDelete(cv.id)}
+                    onClick={() => onDelete(cv._id)}
                     className="inline-flex items-center gap-2 rounded-lg bg-[#4F1C51] duration-400 px-3 py-2 text-sm font-medium text-white hover:bg-black"
                 >
                     <Trash2 className="h-4 w-4" />
@@ -196,6 +199,7 @@ export default function CVDashboard() {
     const [sortBy, setSortBy] = useState("updated-desc"); // "created-asc" | "created-desc" | "updated-asc" | "updated-desc"
 
     useEffect(() => {
+        console.log("use effect runnig");
         const fetchDashboardData = async () => {
             try {
                 const response = await axiosInstance.get('/fetchUserDashboardData')
@@ -234,19 +238,60 @@ export default function CVDashboard() {
         return list;
     }, [cvs, query, sortBy]);
 
-    // Handlers (wire to backend later)
-    const handleToggleFavorite = (id) => {
-        setCvs((prev) =>
-            prev.map((c) => (c.id === id ? { ...c, isFavorite: !c.isFavorite } : c))
-        );
-        // TODO: POST /api/cv/:id/favorite
+    // Handlers
+    const handleToggleFavorite = async (id) => {
+        try {
+            const response = await axiosInstance.patch(`/toggleFavorite/${id}`)
+            if (response.data.success) {
+                setCvs(response.data.userCVs);
+                toastShow(response.data.message, "success");
+            } else {
+                toastShow(response.data.message, "error");
+            }
+        } catch (error) {
+            toastShow("Not deleted. Please try later!")
+        }
     };
 
-    const handleDelete = (id) => {
+    const handleDelete = async (id) => {
         if (!confirm("Delete this CV? This action cannot be undone.")) return;
-        setCvs((prev) => prev.filter((c) => c.id !== id));
-        // TODO: DELETE /api/cv/:id
+
+        try {
+            const response = await axiosInstance.delete(`/deleteUserCv/${id}`)
+            if (response.data.success) {
+                setCvs(response.data.userCVs);
+                toastShow(response.data.message, "success");
+            } else {
+                toastShow(response.data.message, "error");
+            }
+        } catch (error) {
+            toastShow("Not deleted. Please try later!", "error")
+        }
     };
+
+    const showFavoriteCVs = async () => {
+        try {
+            const response = await axiosInstance.get("/fetchFavoriteCVsOnly")
+            if (response.data.success) {
+                setCvs(response.data.userCVs);
+            } else {
+                toastShow("Something wrong, Please try later!", "error");
+            }
+        } catch (error) {
+            toastShow("Not fetched your favorite cvs. Please try later!", "error")
+        }
+    }
+
+    const showAllCVs = async () => {
+        try {
+            const response = await axiosInstance.get('/fetchUserDashboardData')
+            if (response.data.success) {
+                setCvs(response.data.userCVs);
+            }
+        } catch (error) {
+            toastShow("Dashboard data fetch failed", "error")
+        }
+    }
 
     const handleDownload = (id) => {
         // TODO: trigger your download (html2pdf / server PDF / etc.)
@@ -316,8 +361,8 @@ export default function CVDashboard() {
 
                 {/* Stats */}
                 <div className="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-                    <StatCard icon={BarChart3} label="Total CVs" value={total} />
-                    <StatCard icon={Star} label="Favorites" value={favorites} />
+                    <StatCard icon={BarChart3} label="Total CVs" value={total} clickToHandle={showAllCVs} />
+                    <StatCard icon={Star} label="Favorites" value={favorites} clickToHandle={showFavoriteCVs} />
                     <StatCard icon={Clock3} label="Last Updated" value={lastUpdated} />
                 </div>
 
@@ -374,9 +419,9 @@ export default function CVDashboard() {
                 {/* CV Grid */}
                 {cvs.length > 0 && (
                     <div className="flex gap-2 flex-wrap">
-                        {filtered.map((cv) => (
+                        {filtered.map((cv, index) => (
                             <CVCard
-                                key={cv.id}
+                                key={index}
                                 cv={cv}
                                 onToggleFavorite={handleToggleFavorite}
                                 onDelete={handleDelete}

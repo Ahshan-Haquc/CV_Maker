@@ -26,20 +26,57 @@ const createNewCv = async (req, res) => {
     }
 }
 
-const deleteUserCv = (req, res) => {
+const deleteUserCv = async (req, res) => {
     try {
+        const { cvId } = req.params;
+        await CVmodel.findByIdAndDelete(cvId);
 
+        const userCVs = await CVmodel.find({userId: req.userInfo._id});
+
+        res.status(200).json({
+            success: true,
+            userCVs: userCVs,
+            message: "CV deleted successfully."
+        });
     } catch (error) {
-
+        res.status(500).json({ success: false, message: "Server Error" });
     }
 }
 
-const addToFavorite = (req, res) => {
+const toggleFavorite = async (req, res) => {
     try {
+        const { cvId } = req.params;
+        const cv = await CVmodel.findById(cvId);
+        if (!cv) {
+            return res.status(404).json({ success: false, message: "CV not found" });
+        }
+
+        if(cv.isFavorite){
+            await CVmodel.findByIdAndUpdate(cvId, { isFavorite: false });
+            const userCVs = await CVmodel.find({userId: req.userInfo._id});
+            return res.status(200).json({ success: true, userCVs, message: "CV removed from favorites" });
+        } else {
+            await CVmodel.findByIdAndUpdate(cvId, { isFavorite: true });
+            const userCVs = await CVmodel.find({userId: req.userInfo._id});
+            return res.status(200).json({ success: true, userCVs, message: "CV added to favorites" });
+        }
 
     } catch (error) {
-
+        res.status(500).json({ success: false, message: "Server Error" });
     }
 }
 
-module.exports = {fetchUserDashboardData, createNewCv, deleteUserCv, addToFavorite};
+const fetchFavoriteCVsOnly = async (req, res)=>{
+    try {
+       const userCVs = await CVmodel.find({userId: req.userInfo._id, isFavorite: true});
+
+        res.status(200).json({
+            success: true,
+            userCVs: userCVs
+        });
+    } catch (error) {
+       res.status(500).json({ success: false, message: "Server Error" }); 
+    }
+}
+
+module.exports = {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly};
