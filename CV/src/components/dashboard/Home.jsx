@@ -1,7 +1,7 @@
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
 import welcomeImage from "../../assets/Welcome.png";
-import { NavLink } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import axios from 'axios'
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -16,12 +16,14 @@ import { useEffect, useState } from "react";
 import Loading from "../../commonComponents/Loading";
 import OnboardingSteps from "../../sections/OnboardingSteps";
 import Features from "../../commonComponents/Features";
+import axiosInstance from "../../api/axiosInstance";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
 
   const { user } = useAuthUser();
   const { userCV, setUserCV } = useUserCV();
+  const { cvId } = useParams()
 
   const username = user?.email ? user.email.split("@")[0] : "";
 
@@ -36,6 +38,26 @@ const Home = () => {
   ];
   const [isKnownArrayFieldsWillShow, setIsKnownArrayFieldsWillShow] = useState(true);
 
+  //setting cv from which user clicked in the dashboard
+  useEffect(() => {
+    const setCurrentWorkingCV = async () => {
+      if (cvId) {
+        try {
+          console.log("cv id is : ", cvId)
+          const response = await axiosInstance.get(`/fetchCurrentWorkingCV/${cvId}`);
+          if (response.data.success) {
+            setUserCV(response.data.userCurrentCV);
+          } else {
+            alert("something error , please try later.");
+          }
+        } catch (error) {
+          console.log(error);
+          alert("something error in catch, please try later.");
+        }
+      }
+    }
+    setCurrentWorkingCV()
+  }, [])
   const handleSectionDelete = async (sectionName) => {
     try {
       const response = await axios.post(
@@ -72,6 +94,12 @@ const Home = () => {
       {/* loading showing */}
       {loading && <Loading loadingMessage="Loading..." />}
       <div className="h-full w-full pb-4 flex flex-col justify-center items-center  relative">
+        {/* go to dashboard button */}
+        <NavLink to="/cvDashboard">
+          <button className="absolute top-1 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow hover:bg-purple-700 transition">
+            <i className="fas fa-arrow-left mr-2"></i> Dashboard
+          </button>
+        </NavLink>
 
         {/* title text  */}
         <div className="flex flex-col lg:flex-row items-center justify-center w-full px-4 mt-6 gap-4" data-aos="zoom-in" data-aos-duration="8000">

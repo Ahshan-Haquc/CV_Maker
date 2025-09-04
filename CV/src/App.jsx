@@ -30,6 +30,7 @@ import AdminManageUsers from "./pages/AdminManageUsers";
 import AdminLayout from "./components/layout/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import CVDashboard from "./components/CVDashboard";
+import NotFoundPage from "./commonComponents/NotFoundPage";
 
 function App() {
   return (
@@ -42,10 +43,11 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/abc/adminSignup" element={<SignupAdmin />} />
-                <Route path="/cvDashboard" element={<CVDashboard />} />
                 <Route element={<ProtectedRoute />}>
+                  <Route path="/cvDashboard" element={<CVDashboard />} />
                   <Route path="/" element={<AppLayout />}>
                     <Route path="home" element={<Home />} />
+                    <Route path="home/:cvId" element={<Home />} />
                     <Route path="profile" element={<Profile />} />
                     <Route path="contact" element={<Contact />} />
                     <Route path="description" element={<Description />} />
@@ -71,11 +73,7 @@ function App() {
                 <Route path="/viewCV" element={<ViewCV />} />
                 <Route
                   path="*"
-                  element={
-                    <div className="m-5 text-4xl font-bold">
-                      No Page Found!!!
-                    </div>
-                  }
+                  element={<NotFoundPage />}
                 />
               </Routes>
             </BrowserRouter>

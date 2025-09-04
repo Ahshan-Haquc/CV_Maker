@@ -116,7 +116,7 @@ function TemplateCard({ t }) {
     );
 }
 
-function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
+function CVCard({ cv, onToggleFavorite, onDelete }) {
     return (
         <div className="relative min-w-[420px] rounded-2xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-lg transition">
             {/* Top row */}
@@ -155,7 +155,7 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
             {/* Actions */}
             <div className="flex items-center gap-2">
                 <NavLink
-                    to={`/`}
+                    to={`/home/${cv._id}`}
                     className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     <Edit className="h-4 w-4" />
@@ -163,20 +163,20 @@ function CVCard({ cv, onToggleFavorite, onDelete, onDownload }) {
                 </NavLink>
 
                 <NavLink
-                    to={`/preview/${cv._id}`}
+                    to={`/home/${cv._id}`}
                     className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     <Eye className="h-4 w-4" />
                     Preview
                 </NavLink>
 
-                <button
-                    onClick={() => onDownload(cv._id)}
+                <NavLink
+                    to={`/home/${cv._id}`}
                     className="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
                 >
                     <Download className="h-4 w-4" />
                     Download
-                </button>
+                </NavLink>
 
                 <button
                     onClick={() => onDelete(cv._id)}
@@ -292,11 +292,6 @@ export default function CVDashboard() {
             toastShow("Dashboard data fetch failed", "error")
         }
     }
-
-    const handleDownload = (id) => {
-        // TODO: trigger your download (html2pdf / server PDF / etc.)
-        alert(`Download requested for ${id}`);
-    };
 
     const createNewCv = async () => {
         try {
@@ -425,7 +420,6 @@ export default function CVDashboard() {
                                 cv={cv}
                                 onToggleFavorite={handleToggleFavorite}
                                 onDelete={handleDelete}
-                                onDownload={handleDownload}
                             />
                         ))}
                     </div>

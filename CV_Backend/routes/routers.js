@@ -10,7 +10,7 @@ const path = require("path");
 
 
 const {addNewSection, deleteSection, addSectionValue, deleteSectionValue} = require('../controller/addContent');
-const {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly} = require('../controller/userController');
+const {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly, fetchCurrentWorkingCV} = require('../controller/userController');
 const { deleteSectionData } = require('../controller/HomeControll');
 const { adminSignup } = require('../controller/auth');
 
@@ -500,5 +500,6 @@ cvRouter.get("/createUserNewCv", userAccessPermission, createNewCv)
 cvRouter.get("/fetchFavoriteCVsOnly", userAccessPermission, fetchFavoriteCVsOnly)
 cvRouter.delete("/deleteUserCv/:cvId", userAccessPermission, deleteUserCv)
 cvRouter.patch("/toggleFavorite/:cvId",userAccessPermission, toggleFavorite)
+cvRouter.get("/fetchCurrentWorkingCV/:cvId",userAccessPermission, fetchCurrentWorkingCV)
 
 module.exports = cvRouter;

@@ -79,4 +79,18 @@ const fetchFavoriteCVsOnly = async (req, res)=>{
     }
 }
 
-module.exports = {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly};
+const fetchCurrentWorkingCV = async (req,res)=>{
+    const {cvId} = req.params;
+try {
+        const userCurrentCV = await CVmodel.findOne({_id: cvId});
+
+        res.status(200).json({
+            success: true,
+            userCurrentCV
+        });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+}
+
+module.exports = {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly, fetchCurrentWorkingCV};
