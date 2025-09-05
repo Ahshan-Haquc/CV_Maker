@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
 import deleteProject from "../../controllers/deleteItems";
+import toastShow from "../../utils/toastShow";
 
 const Acheivements = () => {
   const { user } = useAuthUser();
@@ -9,7 +10,7 @@ const Acheivements = () => {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    console.log("Achievements updated");
+    console.log("Achievements updated cv : ", userCV);
   }, [userCV]);
 
   // handle input
@@ -24,22 +25,22 @@ const Acheivements = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user._id,
+          cvId: userCV._id,
           acheivement: inputValue,
         }),
       });
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message);
+        toastShow(data.message, "success");
         setUserCV(data.updatedCV);
         setInputValue(""); // Clear input after submit
       } else {
-        alert(data.message);
+        toastShow(data.message, "error");
       }
     } catch (error) {
       console.log("Error in achievement submission:", error);
-      alert("Not updated");
+      toastShow("Not updated", "error");
     }
   };
 
@@ -89,7 +90,7 @@ const Acheivements = () => {
             </tr>
           </thead>
           <tbody>
-            {userCV?.acheivement?.map((item, index) => (
+            {userCV?.achievement?.map((item, index) => (
               <tr
                 key={index}
                 className="border-b border-gray-200 hover:bg-gray-50"
@@ -104,7 +105,7 @@ const Acheivements = () => {
                   <button
                     className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
                     onClick={() =>
-                      deleteProject(user._id, "acheivement", index, setUserCV)
+                      deleteProject(userCV._id, "achievement", index, setUserCV)
                     }
                   >
                     Delete

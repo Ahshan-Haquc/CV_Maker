@@ -3,11 +3,12 @@ import SkillsAddByCategory from "./skills/SkillsAddByCategory";
 import { useSkillsContext } from "../../context/SkillsAddingContext";
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
+import toastShow from "../../utils/toastShow";
 
 const Skills = () => {
   const { user } = useAuthUser();
   const { skills } = useSkillsContext();
-  const { setUserCV } = useUserCV();
+  const { userCV, setUserCV } = useUserCV();
 
   const frontendSkillNames = [
     "HTML",
@@ -115,20 +116,20 @@ const Skills = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user._id,
+          cvId: userCV._id,
           skills,
         }),
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
+        toastShow(data.message, "success");
         setUserCV(data.updatedCV);
       } else {
         alert("Skill update failed: " + data.message);
       }
     } catch (error) {
       console.log("Error submitting skills:", error);
-      alert("Skill update failed due to network error");
+      toastShow("Skill update failed due to network error");
     }
   };
 

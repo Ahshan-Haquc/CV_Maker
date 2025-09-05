@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useUserCV } from "../../context/UserCVContext";
 import { Trash2, Plus } from "lucide-react"; // optional, use heroicons/lucide if available
+import toastShow from "../../utils/toastShow";
 
 const AddSection = () => {
   const { userCV, setUserCV } = useUserCV();
@@ -18,13 +19,13 @@ const AddSection = () => {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sectionName: formValue }),
+        body: JSON.stringify({ cvId: userCV._id, sectionName: formValue }),
       });
       const data = await res.json();
       if (res.ok) {
         setUserCV(data.updatedCV);
         setFormValue("");
-        alert(data.message);
+        toastShow(data.message, "success");
       } else alert(data.error);
     } catch (err) {
       console.error(err);
@@ -40,7 +41,7 @@ const AddSection = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ sectionIndex: index }),
+        body: JSON.stringify({ cvId: userCV._id, sectionIndex: index }),
       });
 
       const data = await response.json();
@@ -64,7 +65,7 @@ const AddSection = () => {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sectionIndex: index, newValue: newContentInput }),
+        body: JSON.stringify({ cvId: userCV._id, sectionIndex: index, newValue: newContentInput }),
       });
       const data = await res.json();
       if (res.ok) {
@@ -84,7 +85,7 @@ const AddSection = () => {
         method: "POST",
         credentials: "include",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sectionIndex, valueIndex }),
+        body: JSON.stringify({ cvId: userCV._id, sectionIndex, valueIndex }),
       });
       const data = await res.json();
       if (res.ok) {

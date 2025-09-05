@@ -1,11 +1,13 @@
+import toastShow from "../utils/toastShow";
+
 // deleteItems.js
-export default async function deleteProject(userId, pageName, indexToDelete, setUserCV) {
+export default async function deleteProject(cvId, pageName, indexToDelete, setUserCV) {
   try {
     const response = await fetch(`${import.meta.env.VITE_API_URL}/deleteItems`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        userId,
+        cvId,
         pageName,
         indexToDelete
       }),
@@ -14,13 +16,13 @@ export default async function deleteProject(userId, pageName, indexToDelete, set
     const data = await response.json();
 
     if (response.ok) {
-      alert(data.message);
+      toastShow(data.message,"success");
       setUserCV(data.updatedCV); // Update CV
     } else {
-      alert(data.message);
+      toastShow(data.message,"error");
     }
   } catch (error) {
     console.log("Error in deletion:", error);
-    alert("Not deleted, catch error");
+    toastShow("Not deleted, catch error","error");
   }
 }

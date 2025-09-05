@@ -2,8 +2,7 @@ const UserCV = require('../models/userCVSchema')
 
 const addNewSection=async (req,res,next)=>{
     try {
-        console.log("working now")
-        const userCV = await UserCV.findOne({userId : req.userInfo._id})
+        const userCV = await UserCV.findOne({_id : req.body.cvId})
         if(!userCV) return res.status(400).json({message:"New section not added!"})
         
         userCV.otherSection.push({sectionName: req.body.sectionName});
@@ -18,7 +17,7 @@ const addNewSection=async (req,res,next)=>{
 
 const deleteSection = async (req, res, next) => {
   try {
-    const userCV = await UserCV.findOne({ userId: req.userInfo._id });
+    const userCV = await UserCV.findOne({ _id : req.body.cvId });
     if (!userCV) {
       return res.status(400).json({ error: "User CV not found" });
     }
@@ -42,7 +41,7 @@ const deleteSection = async (req, res, next) => {
 const addSectionValue = async (req, res, next) => {
   try {
     const { sectionIndex, newValue } = req.body;
-    const userCV = await UserCV.findOne({ userId: req.userInfo._id });
+    const userCV = await UserCV.findOne({ _id : req.body.cvId });
 
     if (!userCV) return res.status(404).json({ error: "User CV not found" });
 
@@ -64,7 +63,7 @@ const addSectionValue = async (req, res, next) => {
 const deleteSectionValue = async (req, res, next) => {
   try {
     const { sectionIndex, valueIndex } = req.body;
-    const userCV = await UserCV.findOne({ userId: req.userInfo._id });
+    const userCV = await UserCV.findOne({ _id : req.body.cvId });
 
     if (!userCV) return res.status(404).json({ error: "User CV not found" });
 

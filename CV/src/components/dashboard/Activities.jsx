@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
 import deleteProject from "../../controllers/deleteItems";
+import toastShow from "../../utils/toastShow";
 
 const Activities = () => {
   const { user } = useAuthUser();
@@ -9,7 +10,7 @@ const Activities = () => {
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
-    console.log("Activities page updated");
+    console.log("Activities page updated cv : ", userCV);
   }, [userCV]);
 
   // Handle input
@@ -19,12 +20,13 @@ const Activities = () => {
 
   // Submit to backend
   const submitData = async () => {
+    console.log("user cv is : ", userCV)
     try {
       const response = await fetch(`${import.meta.env.VITE_API_URL}/updateUserActivities`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user._id,
+          cvId: userCV._id,
           activities: inputValue,
         }),
       });
@@ -32,15 +34,15 @@ const Activities = () => {
       const data = await response.json();
 
       if (response.ok) {
-        alert(data.message);
+        toastShow(data.message, "succcess");
         setUserCV(data.updatedCV);
         setInputValue(""); // Clear input after submit
       } else {
-        alert(data.message);
+        toastShow(data.message, "error");
       }
     } catch (error) {
       console.log("Error in submission:", error);
-      alert("Not updated");
+      toastShow("Not updated", "error");
     }
   };
 
@@ -97,7 +99,7 @@ const Activities = () => {
                 <td className="py-4 px-6 text-sm text-gray-700">
                   <button
                     className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
-                    onClick={() => deleteProject(user._id, "activities", index, setUserCV)}
+                    onClick={() => deleteProject(userCV._id, "activities", index, setUserCV)}
                   >
                     Delete
                   </button>

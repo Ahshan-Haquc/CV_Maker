@@ -4,6 +4,7 @@ import { useUserCV } from "../../context/UserCVContext";
 import deleteProject from "../../controllers/deleteItems"
 
 import { useState } from "react";
+import toastShow from "../../utils/toastShow";
 
 const Projects = () => {
   const { user } = useAuthUser();
@@ -36,7 +37,7 @@ const Projects = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user._id,
+          cvId: userCV._id,
           projectName: contactValues.projectName,
           projectDescription: contactValues.projectDescription,
           projectToolsAndTechnologies:
@@ -45,19 +46,19 @@ const Projects = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
         setUserCV(data.updatedCV);
+        toastShow(data.message, "success");
       } else {
-        alert(data.message);
+        toastShow(data.message, "error");
       }
     } catch (error) {
       console.log("Error in my submittion :", error);
-      alert("Not updated");
+      toastShow("Not updated", "error");
     }
   };
 
   //delete project
-
+  //defined in controller/deleteItems
   return (
     <div className="p-4 h-full min-w-full overflow-x-hidden">
       <div className="text-2xl text-blue-700 font-bold ">
@@ -128,7 +129,7 @@ const Projects = () => {
                   <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-700">
                     <button
                       className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
-                      onClick={() => deleteProject(user._id, "projects", index, setUserCV)}
+                      onClick={() => deleteProject(userCV._id, "projects", index, setUserCV)}
                     >
                       Delete
                     </button>

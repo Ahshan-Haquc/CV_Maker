@@ -1,7 +1,7 @@
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
 import welcomeImage from "../../assets/Welcome.png";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import axios from 'axios'
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -24,6 +24,7 @@ const Home = () => {
   const { user } = useAuthUser();
   const { userCV, setUserCV } = useUserCV();
   const { cvId } = useParams()
+  const navigate = useNavigate()
 
   const username = user?.email ? user.email.split("@")[0] : "";
 
@@ -31,7 +32,7 @@ const Home = () => {
     { name: "projects", willVisible: userCV?.projects?.length > 0 ? true : false },
     { name: "experience", willVisible: userCV?.experience?.length > 0 ? true : false },
     { name: "education", willVisible: userCV?.education?.length > 0 ? true : false },
-    { name: "acheivement", willVisible: userCV?.acheivement?.length > 0 ? true : false },
+    { name: "achievement", willVisible: userCV?.achievement?.length > 0 ? true : false },
     { name: "activities", willVisible: userCV?.activities?.length > 0 ? true : false },
     { name: "reference", willVisible: userCV?.reference?.length > 0 ? true : false },
     { name: "otherSection", willVisible: userCV?.otherSection?.length > 0 ? true : false }
@@ -54,6 +55,10 @@ const Home = () => {
           console.log(error);
           alert("something error in catch, please try later.");
         }
+      }
+      if (!userCV) {
+        console.log("running navigate because no userCV found")
+        navigate('/cvDashboard')
       }
     }
     setCurrentWorkingCV()

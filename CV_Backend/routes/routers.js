@@ -208,7 +208,7 @@ cvRouter.post("/updateUserDescription",async(req,res,next)=>{
 cvRouter.post("/updateUserContact", async (req, res, next) => {
     try {
         const {
-            userId,
+            cvId,
             phoneNumber,
             emailId,
             linkedInId,
@@ -218,7 +218,7 @@ cvRouter.post("/updateUserContact", async (req, res, next) => {
         } = req.body;
 
         if (
-            !userId ||
+            !cvId ||
             !phoneNumber ||
             !emailId ||
             !linkedInId ||
@@ -230,7 +230,7 @@ cvRouter.post("/updateUserContact", async (req, res, next) => {
         }
 
         await CVmodel.updateOne(
-            { userId: userId },
+            { _id: cvId },
             {
                 $set: {
                     phoneNumber,
@@ -242,17 +242,17 @@ cvRouter.post("/updateUserContact", async (req, res, next) => {
                 }
             }
         );
-        res.status(200).json({ message: "Your contact updated succesfully." });
+        res.status(200).json({ success:true, message: "Your contact updated succesfully." });
     } catch (error) {
         next(error);
     }
 });
 //update user skills
 cvRouter.post("/updateUserSkills", async (req, res) => {
-  const { userId, skills } = req.body;
+  const { cvId, skills } = req.body;
 
   try {
-    const userCV = await CVmodel.findOne({ userId });
+    const userCV = await CVmodel.findOne({ _id: cvId });
 
     if (!userCV) {
       return res.status(404).json({ message: "User CV not found" });
@@ -273,13 +273,13 @@ cvRouter.post("/updateUserSkills", async (req, res) => {
 //update or delete user projects
 cvRouter.post("/updateUserProjects",async(req,res,next)=>{
     try {
-        const {userId, projectName, projectDescription, projectToolsAndTechnologies}= req.body;
-        if(!userId || !projectName || !projectDescription || !projectToolsAndTechnologies){
+        const {cvId, projectName, projectDescription, projectToolsAndTechnologies}= req.body;
+        if(!cvId || !projectName || !projectDescription || !projectToolsAndTechnologies){
             return res.status(401).json({message:"Input field not filled"});
         }
-        const userCV = await CVmodel.findOne({userId});
+        const userCV = await CVmodel.findOne({_id: cvId});
         if(!userCV){
-            return res.status(401).json({message:"User cv not found"});
+            return res.status(400).json({message:"User cv not found"});
         }
         userCV.projects.push({projectName,projectDescription,projectToolsAndTechnologies});
         await userCV.save();
@@ -292,14 +292,14 @@ cvRouter.post("/updateUserProjects",async(req,res,next)=>{
 //update user experience
 cvRouter.post("/updateUserExperience",async(req,res,next)=>{
     try {
-        const {userId, organizationName,organizationAddress, joiningDate,endingDate,position,jobDescription }= req.body;
-        if(!userId || !organizationName || !organizationAddress || !joiningDate || !endingDate || !position || !jobDescription){
+        const {cvId, organizationName,organizationAddress, joiningDate,endingDate,position,jobDescription }= req.body;
+        if(!cvId || !organizationName || !organizationAddress || !joiningDate || !endingDate || !position || !jobDescription){
 
             return res.status(401).json({message:"Input field not filled"});
         }
 
         //finding this user cv
-        const userCV = await CVmodel.findOne({userId}); 
+        const userCV = await CVmodel.findOne({_id: cvId}); 
         if(!userCV){
             return res.status(401).json({message:"User cv not found"});
         }
@@ -307,30 +307,25 @@ cvRouter.post("/updateUserExperience",async(req,res,next)=>{
         userCV.experience.push({organizationName,organizationAddress, joiningDate,endingDate,position,jobDescription});
         await userCV.save();
 
-        res.status(200).json({updatedCV:userCV,message:"Your experience added succesfully."});
+        res.status(200).json({success: true,updatedCV:userCV,message:"Your experience added succesfully."});
     } catch (error) {
         next(error);
     }
 })
 //update user education
 cvRouter.post("/updateUserEducation",async(req,res,next)=>{
-    console.log("Working 1")
     try {
-        const {userId, educationQualification, educationInstitutionName, startingDate, endingDate}= req.body;
-        console.log(userId, educationQualification, educationInstitutionName, startingDate, endingDate)
-        if(!userId || !educationQualification || !educationInstitutionName || !startingDate || !endingDate){
-            console.log("Working 1")
+        const {cvId, educationQualification, educationInstitutionName, startingDate, endingDate}= req.body;
+        if(!cvId || !educationQualification || !educationInstitutionName || !startingDate || !endingDate){
             return res.status(401).json({message:"Input field not filled"});
         }
-        const userCV = await CVmodel.findOne({userId});
-        console.log("Working 1")
+        const userCV = await CVmodel.findOne({_id: cvId});
         if(!userCV){
-            console.log("Working 1")
             return res.status(401).json({message:"User cv not found"});
         }
         userCV.education.push({educationQualification, educationInstitutionName, startingDate, endingDate});
         await userCV.save();
-        res.status(200).json({updatedCV:userCV,message:"Your education added succesfully."});
+        res.status(200).json({success: true, updatedCV:userCV,message:"Your education added succesfully."});
     } catch (error) {
         next(error);
     }
@@ -338,17 +333,17 @@ cvRouter.post("/updateUserEducation",async(req,res,next)=>{
 //update user acheivement
 cvRouter.post("/updateUserAcheivement",async(req,res,next)=>{
     try {
-        const {userId, acheivement}= req.body;
-        if(!userId || !acheivement){
+        const {cvId, acheivement}= req.body;
+        if(!cvId || !acheivement){
             return res.status(401).json({message:"Input field not filled"});
         }
-        const userCV = await CVmodel.findOne({userId});
+        const userCV = await CVmodel.findOne({_id: cvId});
         if(!userCV){
             return res.status(401).json({message:"User cv not found"});
         }
-        userCV.acheivement.push(acheivement);
+        userCV.achievement.push(acheivement);
         await userCV.save();
-        res.status(200).json({updatedCV:userCV,message:"Your acheivement added succesfully."});
+        res.status(200).json({success: true, updatedCV:userCV,message:"Your acheivement added succesfully."});
     } catch (error) {
         next(error);
     }
@@ -356,17 +351,17 @@ cvRouter.post("/updateUserAcheivement",async(req,res,next)=>{
 //update user activities
 cvRouter.post("/updateUserActivities",async(req,res,next)=>{
     try {
-        const {userId, activities}= req.body;
-        if(!userId || !activities){
+        const {cvId, activities}= req.body;
+        if(!cvId || !activities){
             return res.status(401).json({message:"Input field not filled"});
         }
-        const userCV = await CVmodel.findOne({userId});
+        const userCV = await CVmodel.findOne({_id: cvId});
         if(!userCV){
             return res.status(401).json({message:"User cv not found"});
         }
         userCV.activities.push(activities);
         await userCV.save();
-        res.status(200).json({updatedCV:userCV,message:"Your activities added succesfully."});
+        res.status(200).json({success: true, updatedCV:userCV,message:"Your activities added succesfully."});
     } catch (error) {
         next(error);
     }
@@ -374,10 +369,10 @@ cvRouter.post("/updateUserActivities",async(req,res,next)=>{
 
 // Update user references (Add a new reference)
 cvRouter.post("/updateUserReference", async (req, res) => {
-  const { userId, referenceName, referenceCompany, referenceEmail, referencePhone } = req.body;
+  const { cvId, referenceName, referenceCompany, referenceEmail, referencePhone } = req.body;
 
   try {
-    const userCV = await CVmodel.findOne({ userId });
+    const userCV = await CVmodel.findOne({ _id: cvId });
 
     if (!userCV) {
       return res.status(404).json({ message: "User CV not found" });
@@ -402,6 +397,7 @@ cvRouter.post("/updateUserReference", async (req, res) => {
     const updatedCV = await userCV.save();
 
     res.status(200).json({
+      success: true,
       message: "Reference added successfully!",
       updatedCV,
     });
@@ -412,9 +408,9 @@ cvRouter.post("/updateUserReference", async (req, res) => {
 });
 
 cvRouter.post("/addNewSectionAgain", async (req, res) => {
-  const { userId, sectionName } = req.body; 
+  const { cvId, sectionName } = req.body; 
   try {
-    const userCV = await CVmodel.findOne({ userId });
+    const userCV = await CVmodel.findOne({ _id: cvId });
 
     if (!userCV) {
       return res.status(404).json({ message: "User CV not found" });
@@ -427,6 +423,7 @@ cvRouter.post("/addNewSectionAgain", async (req, res) => {
     const updatedCV = await userCV.save();
 
     res.status(200).json({
+      success: true,
       message: "New section added successfully!",
       updatedCV,
     });
@@ -436,11 +433,11 @@ cvRouter.post("/addNewSectionAgain", async (req, res) => {
   }
 });
 
-//delete from cv
+//delete items from cv while customize section
 cvRouter.post("/deleteItems", async(req,res,next)=>{
     try {
-        const {userId, pageName, indexToDelete} = req.body;
-        const CV = await CVmodel.findOne({userId}); 
+        const {cvId, pageName, indexToDelete} = req.body;
+        const CV = await CVmodel.findOne({_id: cvId}); 
         if(!CV){
             return res.status(400).json({message:"Not deleted"});
         }
@@ -459,11 +456,9 @@ cvRouter.post("/deleteItems", async(req,res,next)=>{
             CV.reference.splice(indexToDelete, 1); // 1 item will be deleted from that index       
         }
 
-        
-        
         await CV.save();
 
-        res.status(200).json({updatedCV:CV,message:"Deleted succesfully"});
+        res.status(200).json({success: true, updatedCV:CV,message:"Deleted succesfully"});
     } catch (error) {
         console.log("server error during delete : ",error);
         next(error);
@@ -472,10 +467,8 @@ cvRouter.post("/deleteItems", async(req,res,next)=>{
 
 //add new section
 cvRouter.post("/addNewSection",userAccessPermission,async (req,res,next)=>{
-  console.log("working now")
     try {
-        console.log("working now")
-        const userCV = await CVmodel.findOne({userId : req.userInfo._id})
+        const userCV = await CVmodel.findOne({_id : req.body.cvId})
         if(!userCV) return res.status(400).json({message:"New section not added!"})
         
         userCV.otherSection.push({sectionName: req.body.sectionName});

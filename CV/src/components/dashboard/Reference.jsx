@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuthUser } from "../../context/AuthContext";
 import { useUserCV } from "../../context/UserCVContext";
 import deleteProject from "../../controllers/deleteItems";
+import toastShow from "../../utils/toastShow";
 
 const Reference = () => {
   const { user } = useAuthUser();
@@ -36,7 +37,7 @@ const Reference = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user._id,
+          cvId: userCV._id,
           referenceName: referenceValues.referenceName,
           referenceCompany: referenceValues.referenceCompany,
           referenceEmail: referenceValues.referenceEmail,
@@ -45,14 +46,14 @@ const Reference = () => {
       });
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
+        toastShow(data.message, "success");
         setUserCV(data.updatedCV);
       } else {
-        alert(data.message);
+        toastShow(data.message, "error");
       }
     } catch (error) {
       console.log("Error submitting reference:", error);
-      alert("Not updated");
+      toastShow("Not updated", "error");
     }
   };
 
@@ -151,7 +152,7 @@ const Reference = () => {
                   <button
                     className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
                     onClick={() =>
-                      deleteProject(user._id, "reference", index, setUserCV)
+                      deleteProject(userCV._id, "reference", index, setUserCV)
                     }
                   >
                     Delete

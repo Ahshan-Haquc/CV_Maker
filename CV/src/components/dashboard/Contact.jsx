@@ -48,7 +48,7 @@ const Contact = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          userId: user._id,
+          cvId: userCV._id,
           phoneNumber: contactValues.phoneNumber,
           emailId: contactValues.emailId,
           linkedInId: contactValues.linkedInId,
@@ -59,7 +59,8 @@ const Contact = () => {
       });
       if (response.ok) {
         toastShow("Updated successfully!", "success");
-        navigate("/"); // Navigate to dashboard after successful update
+        setContactValues({})
+        navigate("/home"); // Navigate to dashboard after successful update
       } else {
         toastShow("Update failed. Please try again with filling all fields.", "error");
       }

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthUser } from "../../context/AuthContext";
 import deleteProject from "../../controllers/deleteItems"
 import { useUserCV } from "../../context/UserCVContext";
+import toastShow from "../../utils/toastShow";
 
 const Experience = () => {
   const { user } = useAuthUser();
@@ -39,7 +40,7 @@ const Experience = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            userId: user._id,
+            cvId: userCV._id,
             organizationName: contactValues.organizationName,
             organizationAddress: contactValues.organizationAddress,
             joiningDate: contactValues.joiningDate,
@@ -51,14 +52,14 @@ const Experience = () => {
       );
       const data = await response.json();
       if (response.ok) {
-        alert(data.message);
+        toastShow(data.message, "success");
         setUserCV(data.updatedCV);
       } else {
-        alert(data.message);
+        toastShow(data.message, "error");
       }
     } catch (error) {
       console.log("Error in my submittion :", error);
-      alert("Not updated");
+      toastShow("Not updated", "error");
     }
   };
   return (
@@ -177,7 +178,7 @@ const Experience = () => {
                   <td className="py-4 px-6 whitespace-nowrap text-sm text-gray-700">
                     <button
                       className="px-4 py-2 font-semibold text-white bg-red-600 rounded-md hover:bg-red-700"
-                      onClick={() => deleteProject(user._id, "experience", index, setUserCV)}
+                      onClick={() => deleteProject(userCV._id, "experience", index, setUserCV)}
                     >
                       Delete
                     </button>
