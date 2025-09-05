@@ -28,7 +28,7 @@ const Description = () => {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            userId: user._id,
+            cvId: userCV._id,
             userDescription: inputValue, // Send the current state value
           }),
         }

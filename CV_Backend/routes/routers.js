@@ -88,7 +88,7 @@ cvRouter.get("/userLogout", userAccessPermission, async (req, res, next) => {
     console.log("Request recieved in logout router");
   try {
     const user = await UserModel.findOne({ _id: req.userInfo._id });
-    console.log(user);
+
     if (user) {
       user.tokens = [];
       await user.save();
@@ -187,19 +187,19 @@ console.log("working 6")
 cvRouter.post("/updateUserDescription",async(req,res,next)=>{
     
     try {
-        const {userId, userDescription}= req.body;
-        if(!userId || !userDescription){
+        const {cvId, userDescription}= req.body;
+        if(!cvId || !userDescription){
             return res.status(400).json({message:"Input field not filled"});
         }
         await CVmodel.updateOne(
-            {userId:userId},
+            {_id:cvId},
             {
                 $set:{
                     description:userDescription
                 }
             }
         )
-        res.status(200).json({message:"Your description updated succesfully."});
+        res.status(200).json({success: true, message:"Your description updated succesfully."});
     } catch (error) {
         next(error);
     }

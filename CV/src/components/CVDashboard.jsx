@@ -23,6 +23,7 @@ import { MdLightMode } from "react-icons/md";
 import axiosInstance from "../api/axiosInstance";
 import toastShow from "../utils/toastShow";
 import { useEffect } from "react";
+import { useAuthUser } from "../context/AuthContext";
 
 /**
  * Demo data (replace with your backend-driven list)
@@ -238,6 +239,21 @@ export default function CVDashboard() {
         return list;
     }, [cvs, query, sortBy]);
 
+    //logout user
+    const { setUser } = useAuthUser();
+    const logout = async () => {
+        const res = await fetch(`${import.meta.env.VITE_API_URL}/userLogout`, {
+            method: "GET",
+            credentials: "include",
+        });
+        if (res.status === 200) {
+            setUser(null); // update context
+            navigate("/login");
+        } else {
+            toastShow("Logout unsuccessful", "error");
+        }
+    };
+
     // Handlers
     const handleToggleFavorite = async (id) => {
         try {
@@ -299,7 +315,7 @@ export default function CVDashboard() {
             console.log("response is : ", response);
             if (response.data.success) {
                 toastShow(response.data.message, "success");
-                navigate('/home')
+                navigate(`/home/${response.data.userCV._id}`)
             } else {
                 toastShow(response.data.message, "error");
             }
@@ -328,6 +344,7 @@ export default function CVDashboard() {
                     </button>
                     <button
                         className=" h-10 w-10 rounded-full hover:bg-[#ff8757] hover:cursor-pointer duration-500 flex justify-center items-center"
+                        onClick={logout}
                     >
                         <i className="fa-solid fa-arrow-right-from-bracket"></i>
                     </button>

@@ -10,7 +10,7 @@ const otherSectionSchema = new mongoose.Schema(
 
 const UserCVSchema = mongoose.Schema(
   {
-    title: { type: String, default: "Untitled CV" }, // dashboard display
+    title: { type: String, default: `My CV - ${new Date().toLocaleDateString()}` }, // defalut CV name with date
     name: { type: String, default: "Enter Your Name" },
     profession: { type: String, default: "Enter Your Profession" },
     images: { type: String , default : "https://images.pexels.com/photos/8378733/pexels-photo-8378733.jpeg"},

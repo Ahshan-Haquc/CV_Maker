@@ -18,8 +18,8 @@ const createNewCv = async (req, res) => {
         const userNewCV = new CVmodel({
             userId: req.userInfo._id
         })
-        await userNewCV.save();
-        res.status(201).json({success: true, message:"Your CV file created. Now you can add info."});
+        const userCV = await userNewCV.save();
+        res.status(201).json({success: true, userCV, message:"Your CV file created. Now you can add info."});
     } catch (error) {
         res.status(500);
         throw new Error();
