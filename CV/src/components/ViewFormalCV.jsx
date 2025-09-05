@@ -117,91 +117,105 @@ const ViewFormalCV = () => {
           </div>
 
           {/* SKILLS */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Skills</h3>
-            <div className="grid grid-cols-2 gap-4">
-              {userCV.skills &&
-                Object.entries(userCV.skills).map(([category, skillList], idx) => (
-                  <div key={idx}>
-                    <h4 className="font-bold">{category}</h4>
-                    <ul className="list-disc list-inside">
-                      {skillList.map((skill, index) => (
-                        <li key={index}>{skill}</li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
+          {userCV.skills && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Skills</h3>
+              <div className="grid grid-cols-2 gap-4">
+                {userCV.skills &&
+                  Object.entries(userCV.skills).map(([category, skillList], idx) => (
+                    <div key={idx}>
+                      <h4 className="font-bold">{category}</h4>
+                      <ul className="list-disc list-inside">
+                        {skillList.map((skill, index) => (
+                          <li key={index}>{skill}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* EDUCATION */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Education</h3>
-            {userCV.education.map((edu, index) => (
-              <div key={index} className="mb-2">
-                <p className="font-bold">{edu.educationQualification}</p>
-                <p>{edu.educationInstitutionName}</p>
-                <p className="text-sm text-gray-600">{edu.startingDate} - {edu.endingDate}</p>
-              </div>
-            ))}
-          </div>
+          {userCV.education.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Education</h3>
+              {userCV.education.map((edu, index) => (
+                <div key={index} className="mb-2">
+                  <p className="font-bold">{edu.educationQualification}</p>
+                  <p>{edu.educationInstitutionName}</p>
+                  <p className="text-sm text-gray-600">{edu.startingDate} - {edu.endingDate}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* EXPERIENCE */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Experience</h3>
-            {userCV.experience.map((exp, index) => (
-              <div key={index} className="mb-2">
-                <p className="font-bold">{exp.position} at {exp.organizationName}</p>
-                <p>{exp.organizationAddress}</p>
-                <p className="text-sm text-gray-600">{exp.joiningDate} - {exp.endingDate}</p>
-                <p>{exp.jobDescription}</p>
-              </div>
-            ))}
-          </div>
+          {userCV.experience.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Experience</h3>
+              {userCV.experience.map((exp, index) => (
+                <div key={index} className="mb-2">
+                  <p className="font-bold">{exp.position} at {exp.organizationName}</p>
+                  <p>{exp.organizationAddress}</p>
+                  <p className="text-sm text-gray-600">{exp.joiningDate} - {exp.endingDate}</p>
+                  <p>{exp.jobDescription}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* PROJECTS */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Projects</h3>
-            {userCV.projects.map((proj, index) => (
-              <div key={index} className="mb-2">
-                <p className="font-bold">{proj.projectName}</p>
-                <p>{proj.projectDescription}</p>
-                <p className="text-sm text-gray-600">{proj.projectToolsAndTechnologies}</p>
-              </div>
-            ))}
-          </div>
+          {userCV.projects.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Projects</h3>
+              {userCV.projects.map((proj, index) => (
+                <div key={index} className="mb-2">
+                  <p className="font-bold">{proj.projectName}</p>
+                  <p>{proj.projectDescription}</p>
+                  <p className="text-sm text-gray-600">{proj.projectToolsAndTechnologies}</p>
+                </div>
+              ))}
+            </div>
+          )}
 
           {/* ACHIEVEMENTS */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Achievements</h3>
-            <ul className="list-disc list-inside">
-              {userCV.acheivement.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          {userCV.achievement.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Achievements</h3>
+              <ul className="list-disc list-inside">
+                {userCV.achievement.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* ACTIVITIES */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Activities</h3>
-            <ul className="list-disc list-inside">
-              {userCV.activities.map((item, index) => (
-                <li key={index}>{item}</li>
-              ))}
-            </ul>
-          </div>
+          {userCV.activities.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">Activities</h3>
+              <ul className="list-disc list-inside">
+                {userCV.activities.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          )}
 
           {/* REFERENCES */}
-          <div className="mb-6">
-            <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">References</h3>
-            {userCV.reference.map((ref, index) => (
-              <div key={index} className="mb-2">
-                <p className="font-bold">{ref.referenceName}</p>
-                <p>{ref.referenceCompany}</p>
-                <p>{ref.referenceEmail} | {ref.referencePhone}</p>
-              </div>
-            ))}
-          </div>
+          {userCV.reference.length > 0 && (
+            <div className="mb-6">
+              <h3 className="text-2xl font-semibold border-b border-gray-300 pb-1 mb-2">References</h3>
+              {userCV.reference.map((ref, index) => (
+                <div key={index} className="mb-2">
+                  <p className="font-bold">{ref.referenceName}</p>
+                  <p>{ref.referenceCompany}</p>
+                  <p>{ref.referenceEmail} | {ref.referencePhone}</p>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       </div>
 

@@ -25,9 +25,10 @@ const UserCVDisplayLayout1 = () => {
     projects,
     experience,
     education,
-    acheivement,
+    achievement,
     activities,
     reference,
+    otherSection
   } = userCV;
 
   // for downloading pdf 
@@ -96,6 +97,7 @@ const UserCVDisplayLayout1 = () => {
       {/* loading showing */}
       {loading && <Loading loadingMessage="Generating CV..." />}
 
+      {/* now from here i will display only that sections or part which is filled by user means not empty */}
       <div className="bg-gray-100 min-h-screen min-w-screen  p-6">
         <div ref={printRef} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10" >
           <div className="text-center">
@@ -117,84 +119,119 @@ const UserCVDisplayLayout1 = () => {
 
           <hr className="my-6" />
 
-          <section>
-            <h2 className="text-xl font-semibold text-blue-400">About Me</h2>
-            <p className="text-gray-700 mt-2">{description}</p>
-          </section>
+          {description && (
+            <section>
+              <h2 className="text-xl font-semibold text-blue-400">About Me</h2>
+              <p className="text-gray-700 mt-2">{description}</p>
+            </section>
+          )}
 
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">Skills</h2>
-            {skills &&
-              Object.entries(skills).map(([category, skillList]) => (
-                <div key={category} className="mt-2">
-                  <h3 className="font-semibold text-gray-700">{category}</h3>
-                  <p className="text-gray-600">{skillList.join(", ")}</p>
+          {skills && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">Skills</h2>
+              {skills &&
+                Object.entries(skills).map(([category, skillList]) => (
+                  <div key={category} className="mt-2">
+                    <h3 className="font-semibold text-gray-700">{category}</h3>
+                    <p className="text-gray-600">{skillList.join(", ")}</p>
+                  </div>
+                ))}
+            </section>
+          )}
+
+          {projects.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">Projects</h2>
+              {projects.map((proj, idx) => (
+                <div key={idx} className="mt-2">
+                  <h3 className="font-bold">{proj.projectName}</h3>
+                  <p>{proj.projectDescription}</p>
+                  <p className="text-sm text-gray-500">{proj.projectToolsAndTechnologies}</p>
                 </div>
               ))}
-          </section>
+            </section>
+          )}
 
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">Projects</h2>
-            {projects.map((proj, idx) => (
-              <div key={idx} className="mt-2">
-                <h3 className="font-bold">{proj.projectName}</h3>
-                <p>{proj.projectDescription}</p>
-                <p className="text-sm text-gray-500">{proj.projectToolsAndTechnologies}</p>
-              </div>
-            ))}
-          </section>
-
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">Experience</h2>
-            {experience.map((exp, idx) => (
-              <div key={idx} className="mt-2">
-                <h3 className="font-bold">{exp.position} @ {exp.organizationName}</h3>
-                <p className="text-sm text-gray-500">{exp.joiningDate} - {exp.endingDate}</p>
-                <p>{exp.jobDescription}</p>
-              </div>
-            ))}
-          </section>
-
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">Education</h2>
-            {education.map((edu, idx) => (
-              <div key={idx} className="mt-2">
-                <h3 className="font-bold">{edu.educationQualification}</h3>
-                <p>{edu.educationInstitutionName}</p>
-                <p className="text-sm text-gray-500">{edu.startingDate} - {edu.endingDate}</p>
-              </div>
-            ))}
-          </section>
-
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">Achievements</h2>
-            <ul className="list-disc ml-6">
-              {acheivement.map((ach, idx) => (
-                <li key={idx}>{ach}</li>
+          {experience.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">Experience</h2>
+              {experience.map((exp, idx) => (
+                <div key={idx} className="mt-2">
+                  <h3 className="font-bold">{exp.position} @ {exp.organizationName}</h3>
+                  <p className="text-sm text-gray-500">{exp.joiningDate} - {exp.endingDate}</p>
+                  <p>{exp.jobDescription}</p>
+                </div>
               ))}
-            </ul>
-          </section>
+            </section>
+          )}
 
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">Activities</h2>
-            <ul className="list-disc ml-6">
-              {activities.map((act, idx) => (
-                <li key={idx}>{act}</li>
+          {education.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">Education</h2>
+              {education.map((edu, idx) => (
+                <div key={idx} className="mt-2">
+                  <h3 className="font-bold">{edu.educationQualification}</h3>
+                  <p>{edu.educationInstitutionName}</p>
+                  <p className="text-sm text-gray-500">{edu.startingDate} - {edu.endingDate}</p>
+                </div>
               ))}
-            </ul>
-          </section>
+            </section>
+          )}
 
-          <section className="mt-6">
-            <h2 className="text-xl font-semibold text-blue-400">References</h2>
-            {reference.map((ref, idx) => (
-              <div key={idx} className="mt-2">
-                <h3 className="font-semibold">{ref.referenceName}</h3>
-                <p>{ref.referenceCompany}</p>
-                <p>{ref.referenceEmail}</p>
-                <p>{ref.referencePhone}</p>
-              </div>
-            ))}
-          </section>
+          {achievement.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">Achievements</h2>
+              <ul className="list-disc ml-6">
+                {achievement.map((ach, idx) => (
+                  <li key={idx}>{ach}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {activities.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">Activities</h2>
+              <ul className="list-disc ml-6">
+                {activities.map((act, idx) => (
+                  <li key={idx}>{act}</li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {reference.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">References</h2>
+              {reference.map((ref, idx) => (
+                <div key={idx} className="mt-2">
+                  <h3 className="font-semibold">{ref.referenceName}</h3>
+                  <p>{ref.referenceCompany}</p>
+                  <p>{ref.referenceEmail}</p>
+                  <p>{ref.referencePhone}</p>
+                </div>
+              ))}
+            </section>
+          )}
+
+          {/* Other sections */}
+          {otherSection.length > 0 && (
+            <div className="text-black mt-8 h-fit">
+              {otherSection.map((section, index) => {
+                return (
+                  <>
+                    <h2 className="text-xl font-semibold text-blue-400">{section.sectionName}</h2>
+                    <ul className="list-disc ml-6">
+                      {section.sectionValues.map((value, idx) => (
+                        <li key={idx}>{value}</li>
+                      ))}
+                    </ul>
+                  </>
+                );
+              })}
+            </div>
+          )}
+
         </div>
       </div>
 

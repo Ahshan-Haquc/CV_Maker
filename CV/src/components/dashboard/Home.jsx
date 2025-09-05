@@ -100,10 +100,10 @@ const Home = () => {
       {loading && <Loading loadingMessage="Loading..." />}
       <div className="h-full w-full pb-4 flex flex-col justify-center items-center  relative">
         {/* go to dashboard button */}
-        <NavLink to="/cvDashboard">
-          <button className="absolute top-1 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow hover:bg-purple-700 transition">
-            <i className="fas fa-arrow-left mr-2"></i> Dashboard
-          </button>
+        <NavLink to="/cvDashboard" className="absolute top-1 right-4 bg-purple-600 text-white px-4 py-2 rounded-lg shadow hover:bg-purple-700 transition">
+
+          <i className="fas fa-arrow-left mr-2"></i> Dashboard
+
         </NavLink>
 
         {/* title text  */}
@@ -132,7 +132,7 @@ const Home = () => {
               data-aos="fade-up" data-aos-duration="8000"
             >
               <i className="fas fa-file-alt text-3xl sm:text-4xl"></i>
-              <span className="text-lg sm:text-xl text-center">Generate Formal CV</span>
+              <span className="text-lg sm:text-xl text-center">Generate Resume</span>
             </NavLink>
 
             <NavLink

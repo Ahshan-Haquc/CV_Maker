@@ -1,44 +1,24 @@
-// UserCVContext.jsx
-import React, { useState, useEffect } from "react";
-import { createContext, useContext } from "react";
-import { useAuthUser } from "./AuthContext";
-import Loading from "../commonComponents/Loading";
+import React, { useState, useEffect, createContext, useContext } from "react";
 
 export const CVcontext = createContext();
 
 export const CVprovider = ({ children }) => {
-  const { user } = useAuthUser();
-  const [userCV, setUserCV] = useState(null);
+  const [userCV, setUserCV] = useState(() => { //function means if i reload page then userCV value will not lost, it will store in localstorage and then again will assign that value in userCV
+    const savedCV = localStorage.getItem("userCV");
+    return savedCV ? JSON.parse(savedCV) : null;
+  });
 
-  // useEffect(() => {
-  //   const fetchUserCV = async () => {
-  //     if (!user || !user._id) return;
+  useEffect(() => {
+    if (userCV) {
+      localStorage.setItem("userCV", JSON.stringify(userCV));
+    }
+  }, [userCV]);
 
-  //     try {
-  //       const res = await fetch(`${import.meta.env.VITE_API_URL}/viewCV`, {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         credentials: "include",
-  //         body: JSON.stringify({ userId: user._id }),
-  //       });
-
-  //       if (res.ok) {
-  //         const data = await res.json();
-  //         setUserCV(data.userCV);
-  //       } else {
-  //         console.error("Failed to fetch user CV");
-  //       }
-  //     } catch (err) {
-  //       console.error("CV Fetch Error:", err);
-  //     }
-  //   };
-
-  //   fetchUserCV();
-  // }, [user]);
-
-  // if (user === undefined) return <Loading/>;
-
-  return <CVcontext.Provider value={{ userCV, setUserCV }}>{children}</CVcontext.Provider>;
+  return (
+    <CVcontext.Provider value={{ userCV, setUserCV }}>
+      {children}
+    </CVcontext.Provider>
+  );
 };
 
 export const useUserCV = () => useContext(CVcontext);

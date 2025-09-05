@@ -66,11 +66,11 @@ const RightSide = () => {
       )}
 
       {/* achievement */}
-      {userCV?.acheivement.length > 0 && (
+      {userCV?.achievement.length > 0 && (
         <div className="text-black mt-12 h-fit">
           <Title title="Achievement" pageName="rightSide" />
           <ul className="list-disc text-2xl mt-8 ml-8">
-            {userCV?.acheivement.map((achievement, index) => {
+            {userCV?.achievement.map((achievement, index) => {
               return <Acheivement text={achievement} key={index} />;
             })}
           </ul>
