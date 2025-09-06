@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import LeftSide from "./LeftSide";
 import RightSide from "./RightSide";
 import { useEffect } from "react";
@@ -7,22 +7,28 @@ import { useUserCV } from "../context/UserCVContext";
 import Loading from "../commonComponents/Loading";
 import { loadingOnPageLoad } from "../controllers/loadingOnPageLoad";
 import { toPng } from "html-to-image";
+import html2canvas from "html2canvas";
 
 const ViewCV = () => {
   const [loading, setLoading] = useState(true);
   const { userCV, setUserCV } = useUserCV();
   useEffect(() => {
-    document.title = "CV";
+    document.title = "Modern CV";
   }, [userCV]);
-  //for download CV
-  const handleScreenshot = () => {
-    const node = document.getElementById("cv-content");
-    toPng(node).then((dataUrl) => {
+
+  const pageRef = useRef(null);
+  const handleScreenshot = async () => {
+    if (!pageRef.current) return;
+
+    try {
+      const dataUrl = await toPng(pageRef.current, { cacheBust: true });
       const link = document.createElement("a");
-      link.download = "screenshot.png";
       link.href = dataUrl;
+      link.download = "screenshot.png";
       link.click();
-    });
+    } catch (err) {
+      console.error("Screenshot failed", err);
+    }
   };
 
   // for loading when someone first access in this page 
@@ -43,7 +49,7 @@ const ViewCV = () => {
         <i class="fa-solid fa-arrow-left"></i>
       </NavLink>
       <div className=" p-[100px] mx-auto bg-gray-100">
-        <div id="cv-content" className="flex">
+        <div ref={pageRef} className="flex">
           <LeftSide />
           <RightSide />
         </div>

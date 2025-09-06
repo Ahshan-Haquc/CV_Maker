@@ -5,6 +5,7 @@ import jsPDF from "jspdf";
 import domtoimage from "dom-to-image";
 import Loading from "../commonComponents/Loading";
 import { loadingOnPageLoad } from "../controllers/loadingOnPageLoad";
+import { toPng } from "html-to-image";
 
 const UserCVDisplayLayout1 = () => {
   const [loading, setLoading] = useState(true);
@@ -32,64 +33,78 @@ const UserCVDisplayLayout1 = () => {
   } = userCV;
 
   // for downloading pdf 
-  const printRef = useRef(null);
+  // const printRef = useRef(null);
 
   if (!userCV) return <p className="text-center text-xl">Loading...</p>;
 
+  // const handleDownloadPdf = async () => {
+  //   const element = printRef.current;
+  //   const scale = 2;
+
+  //   try {
+  //     const dataUrl = await domtoimage.toPng(element, {
+  //       width: element.offsetWidth * scale,
+  //       height: element.offsetHeight * scale,
+  //       style: {
+  //         transform: `scale(${scale})`,
+  //         transformOrigin: "top left",
+  //         width: `${element.offsetWidth * scale}px`,
+  //         height: `${element.offsetHeight * scale}px`,
+  //       },
+  //     });
+
+  //     const img = new Image();
+  //     img.src = dataUrl;
+
+  //     img.onload = () => {
+  //       const pdf = new jsPDF("p", "mm", "a4");
+  //       const pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
+  //       const pdfHeight = pdf.internal.pageSize.getHeight(); // 297mm
+
+  //       const pxToMm = (px) => (px * 25.4) / 96;
+  //       const imgWidthMm = pxToMm(img.width);
+  //       const imgHeightMm = pxToMm(img.height);
+
+  //       const ratio = imgWidthMm / imgHeightMm;
+
+  //       const renderedImgWidth = pdfWidth;
+  //       const renderedImgHeight = renderedImgWidth / ratio;
+
+  //       const totalPages = Math.ceil(renderedImgHeight / pdfHeight);
+
+  //       for (let i = 0; i < totalPages; i++) {
+  //         if (i > 0) pdf.addPage();
+  //         pdf.addImage(
+  //           dataUrl,
+  //           "PNG",
+  //           0,
+  //           -i * pdfHeight,
+  //           renderedImgWidth,
+  //           renderedImgHeight
+  //         );
+  //       }
+
+  //       pdf.save("cv.pdf");
+  //     };
+  //   } catch (error) {
+  //     console.error("PDF generation failed:", error);
+  //   }
+  // };
+
+  const pageRef = useRef(null);
   const handleDownloadPdf = async () => {
-    const element = printRef.current;
-    const scale = 2;
+    if (!pageRef.current) return;
 
     try {
-      const dataUrl = await domtoimage.toPng(element, {
-        width: element.offsetWidth * scale,
-        height: element.offsetHeight * scale,
-        style: {
-          transform: `scale(${scale})`,
-          transformOrigin: "top left",
-          width: `${element.offsetWidth * scale}px`,
-          height: `${element.offsetHeight * scale}px`,
-        },
-      });
-
-      const img = new Image();
-      img.src = dataUrl;
-
-      img.onload = () => {
-        const pdf = new jsPDF("p", "mm", "a4");
-        const pdfWidth = pdf.internal.pageSize.getWidth(); // 210mm
-        const pdfHeight = pdf.internal.pageSize.getHeight(); // 297mm
-
-        const pxToMm = (px) => (px * 25.4) / 96;
-        const imgWidthMm = pxToMm(img.width);
-        const imgHeightMm = pxToMm(img.height);
-
-        const ratio = imgWidthMm / imgHeightMm;
-
-        const renderedImgWidth = pdfWidth;
-        const renderedImgHeight = renderedImgWidth / ratio;
-
-        const totalPages = Math.ceil(renderedImgHeight / pdfHeight);
-
-        for (let i = 0; i < totalPages; i++) {
-          if (i > 0) pdf.addPage();
-          pdf.addImage(
-            dataUrl,
-            "PNG",
-            0,
-            -i * pdfHeight,
-            renderedImgWidth,
-            renderedImgHeight
-          );
-        }
-
-        pdf.save("cv.pdf");
-      };
-    } catch (error) {
-      console.error("PDF generation failed:", error);
+      const dataUrl = await toPng(pageRef.current, { cacheBust: true });
+      const link = document.createElement("a");
+      link.href = dataUrl;
+      link.download = "screenshot.png";
+      link.click();
+    } catch (err) {
+      console.error("Screenshot failed", err);
     }
   };
-
   // for loading when someone first access in this page 
   loadingOnPageLoad(setLoading);
   return (
@@ -99,13 +114,13 @@ const UserCVDisplayLayout1 = () => {
 
       {/* now from here i will display only that sections or part which is filled by user means not empty */}
       <div className="bg-gray-100 min-h-screen min-w-screen  p-6">
-        <div ref={printRef} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10" >
+        <div ref={pageRef} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10" >
           <div className="text-center">
-            <img
+            {/* <img
               src={`http://localhost:3000/uploads/${images}`}
               alt="Profile"
               className="w-32 h-32 mx-auto rounded-full object-cover"
-            />
+            /> */}
             <h1 className="text-3xl font-bold mt-4">{name} gsdter</h1>
             <h2 className="text-lg text-gray-600">{profession}</h2>
             <p className="text-sm text-gray-600">{address}</p>
@@ -200,23 +215,9 @@ const UserCVDisplayLayout1 = () => {
             </section>
           )}
 
-          {reference.length > 0 && (
-            <section className="mt-6">
-              <h2 className="text-xl font-semibold text-blue-400">References</h2>
-              {reference.map((ref, idx) => (
-                <div key={idx} className="mt-2">
-                  <h3 className="font-semibold">{ref.referenceName}</h3>
-                  <p>{ref.referenceCompany}</p>
-                  <p>{ref.referenceEmail}</p>
-                  <p>{ref.referencePhone}</p>
-                </div>
-              ))}
-            </section>
-          )}
-
           {/* Other sections */}
           {otherSection.length > 0 && (
-            <div className="text-black mt-8 h-fit">
+            <div className="text-black my-8 h-fit">
               {otherSection.map((section, index) => {
                 return (
                   <>
@@ -230,6 +231,20 @@ const UserCVDisplayLayout1 = () => {
                 );
               })}
             </div>
+          )}
+
+          {reference.length > 0 && (
+            <section className="mt-6">
+              <h2 className="text-xl font-semibold text-blue-400">References</h2>
+              {reference.map((ref, idx) => (
+                <div key={idx} className="mt-2">
+                  <h3 className="font-semibold">{ref.referenceName}</h3>
+                  <p>{ref.referenceCompany}</p>
+                  <p>{ref.referenceEmail}</p>
+                  <p>{ref.referencePhone}</p>
+                </div>
+              ))}
+            </section>
           )}
 
         </div>
