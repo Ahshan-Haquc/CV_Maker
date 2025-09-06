@@ -12,6 +12,7 @@ const Login = () => {
 
   useEffect(() => {
     document.title = "Login";
+    toastShow("You do not have to varify email. so do not use your actual email and password if you are afraid.")
   }, []);
 
   // Handle input changes

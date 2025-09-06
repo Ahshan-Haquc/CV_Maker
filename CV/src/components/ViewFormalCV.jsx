@@ -104,11 +104,11 @@ const ViewFormalCV = () => {
         >
           {/* HEADER */}
           <div className="text-center mb-6">
-            {/* <img
-              src={`http://localhost:3000/uploads/${userCV.images}`}
+            <img
+              src={userCV.images}
               alt="Profile"
               className="w-32 h-32 rounded-full mx-auto object-cover border-2 border-gray-400"
-            /> */}
+            />
             <h1 className="text-3xl font-bold mt-4">{userCV.name}</h1>
             <h2 className="text-xl text-gray-600">{userCV.profession}</h2>
           </div>

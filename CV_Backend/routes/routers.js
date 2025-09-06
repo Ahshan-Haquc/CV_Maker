@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 const userAccessPermission = require("../middleware/authUserPermision");
 const multer = require("multer");
 const path = require("path");
+const upload = require("../config/upload")
 
 
 const {addNewSection, deleteSection, addSectionValue, deleteSectionValue} = require('../controller/addContent');
@@ -132,56 +133,77 @@ cvRouter.post("/viewCV",async(req,res,next)=>{
 //update user profile info including image
 
 // configure multer
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "uploads/"); // upload directory (create if not exists)
-  },
-  filename: function (req, file, cb) {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    const ext = path.extname(file.originalname);
-    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
-  },
-});
-const upload = multer({ storage });
-
 // route to update profile with image
-cvRouter.post("/updateUserProfile", upload.single("photo"), async (req, res) => {
-    console.log("working 1")
-  try {
-    console.log("working 2")
-    const { userId, name, profession } = req.body;
-    console.log(userId,name,profession);
-    console.log("working 3")
+// ---jodi local storage use kori image store korar jonno---------
+// const storage = multer.diskStorage({
+//   destination: function (req, file, cb) {
+//     cb(null, "uploads/"); // upload directory (create if not exists)
+//   },
+//   filename: function (req, file, cb) {
+//     const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+//     const ext = path.extname(file.originalname);
+//     cb(null, file.fieldname + "-" + uniqueSuffix + ext);
+//   },
+// });
+// const upload = multer({ storage });
 
-    if (!userId || !name || !profession || !req.file) {
-        console.log("working 4")
+// cvRouter.post("/updateUserProfile", upload.single("photo"), async (req, res) => {
+//   try {
+//     const { userId, name, profession } = req.body;
+//     console.log(userId,name,profession);
+
+//     if (!userId || !name || !profession || !req.file) {
+//       return res.status(400).json({ message: "All fields required" });
+//     }
+
+//     const imagePath = req.file.filename; // only store file name
+//     console.log(imagePath)
+
+//     await CVmodel.updateOne(
+//       { userId: userId },
+//       {
+//         $set: {
+//           name,
+//           profession,
+//           images: imagePath,
+//         }
+//       },
+//       { upsert: true }
+//     );
+//     res.status(200).json({ message: "Profile updated with image succesfully" });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error" });
+//   }
+// });
+
+// ---jodi cloud storage use kori image store korar jonno---------
+cvRouter.post("/updateUserProfile", upload.single("photo"), async (req, res) => {
+  try {
+    const { userId, name, profession } = req.body;
+
+    if (!userId || !name || !profession) {
       return res.status(400).json({ message: "All fields required" });
     }
 
-    const imagePath = req.file.filename; // only store file name
-    console.log(imagePath)
-    console.log("working 5")
+    let updateData = { name, profession };
+
+    if (req.file && req.file.path) {
+      // Cloudinary auto provides a secure URL in req.file.path
+      updateData.images = req.file.path;
+    }
 
     await CVmodel.updateOne(
-      { userId: userId },
-      {
-        $set: {
-          name,
-          profession,
-          images: imagePath,
-        }
-      },
+      { userId },
+      { $set: updateData },
       { upsert: true }
     );
-console.log("working 6")
-    res.status(200).json({ message: "Profile updated with image succesfully" });
+
+    res.status(200).json({ message: "Profile updated successfully" });
   } catch (error) {
-    console.log("working in error");
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 });
-
 
 //update user description
 cvRouter.post("/updateUserDescription",async(req,res,next)=>{

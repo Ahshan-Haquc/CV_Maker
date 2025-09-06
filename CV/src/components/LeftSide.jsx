@@ -11,11 +11,11 @@ const LeftSide = () => {
     <div className="min-w-[400px]  min-h-full  bg-[#213448] flex flex-col items-center">
       {/* image  */}
       <div className="h-[250px] w-[250px] rounded-full mt-8">
-        {/* <img
-          src={`http://localhost:3000/uploads/${userCV?.images}`}
+        <img
+          src={userCV?.images}
           className="object-cover h-full w-full rounded-full"
           alt="Profile"
-        /> */}
+        />
       </div>
 
       {/* contact */}

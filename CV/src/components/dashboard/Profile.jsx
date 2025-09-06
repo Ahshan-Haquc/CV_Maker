@@ -33,11 +33,8 @@ const Profile = () => {
   };
 
   const handleSubmit = async () => {
-    // You might want to remove the image validation here if it's optional on update
-    // or provide a way for the user to keep the existing image if not uploading a new one.
-    // For now, I'll keep the existing check but be mindful of its impact on updates.
-    if (!inputValue.name || !inputValue.profession || !image) {
-      toastShow("All fields are required.", "error");
+    if (!inputValue.name || !inputValue.profession) {
+      toastShow("Name and Profession are required.", "error");
       return;
     }
 
@@ -45,8 +42,9 @@ const Profile = () => {
     formData.append("userId", user._id);
     formData.append("name", inputValue.name);
     formData.append("profession", inputValue.profession);
+
     if (image) {
-      // Only append image if a new one is selected
+      // Only append if image selected
       formData.append("photo", image);
     }
 
@@ -59,7 +57,7 @@ const Profile = () => {
       const data = await res.json();
       if (res.ok) {
         toastShow(data.message, "success");
-        navigate("/"); // Navigate to dashboard after successful update
+        navigate("/");
       } else {
         toastShow("Failed: " + data.message, "error");
       }
@@ -68,6 +66,7 @@ const Profile = () => {
       toastShow("Upload error.", "error");
     }
   };
+
 
   return (
     <div className="p-4 h-full min-w-full">

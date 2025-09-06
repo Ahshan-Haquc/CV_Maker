@@ -116,11 +116,11 @@ const UserCVDisplayLayout1 = () => {
       <div className="bg-gray-100 min-h-screen min-w-screen  p-6">
         <div ref={pageRef} className="max-w-4xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10" >
           <div className="text-center">
-            {/* <img
-              src={`http://localhost:3000/uploads/${images}`}
+            <img
+              src={images}
               alt="Profile"
               className="w-32 h-32 mx-auto rounded-full object-cover"
-            /> */}
+            />
             <h1 className="text-3xl font-bold mt-4">{name} gsdter</h1>
             <h2 className="text-lg text-gray-600">{profession}</h2>
             <p className="text-sm text-gray-600">{address}</p>

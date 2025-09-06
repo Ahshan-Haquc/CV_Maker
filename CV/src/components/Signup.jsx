@@ -11,6 +11,7 @@ const Signup = () => {
   // Set the document title when the component mounts
   useEffect(() => {
     document.title = "Sign Up";
+    toastShow("You do not have to varify email. so do not use your actual email and password if you are afraid.")
   }, []);
 
   // Handle input changes

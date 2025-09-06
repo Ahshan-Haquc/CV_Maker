@@ -126,7 +126,7 @@ const Home = () => {
             <NavLink
               to="/viewFormalCV"
               className="w-full p-6 h-[180px] rounded-xl text-white font-semibold tracking-wide
-      shadow-lg hover:shadow-xl transition-all duration-400 hover:scale-105
+      shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105
       bg-gradient-to-tr from-pink-500 to-purple-600 border border-pink-400
       flex flex-col items-center justify-center space-y-3"
               data-aos="fade-up" data-aos-duration="8000"

@@ -418,13 +418,13 @@ export default function CVDashboard() {
                         <div className="mb-6 text-sm text-gray-500">
                             Click the button below to start your first CV.
                         </div>
-                        <NavLink
-                            to="/create"
-                            className="inline-flex items-center gap-2 rounded-xl bg-gray-900 px-4 py-2.5 font-medium text-white hover:bg-black"
+                        <button
+                            onClick={createNewCv}
+                            className="inline-flex items-center gap-2 rounded-xl bg-[#4F1C51] px-4 py-2.5 font-medium text-white hover:bg-black"
                         >
                             <Plus className="h-5 w-5" />
                             Create New CV
-                        </NavLink>
+                        </button>
                     </div>
                 )}
 
