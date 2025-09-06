@@ -11,7 +11,7 @@ const upload = require("../config/upload")
 
 
 const {addNewSection, deleteSection, addSectionValue, deleteSectionValue} = require('../controller/addContent');
-const {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly, fetchCurrentWorkingCV} = require('../controller/userController');
+const {updateUserCvTitle, fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly, fetchCurrentWorkingCV} = require('../controller/userController');
 const { deleteSectionData } = require('../controller/HomeControll');
 const { adminSignup } = require('../controller/auth');
 
@@ -130,6 +130,7 @@ cvRouter.post("/viewCV",async(req,res,next)=>{
 
 
 // -------------user dashboard activities---------------
+cvRouter.patch("/updateUserCvTitle",userAccessPermission,updateUserCvTitle);
 //update user profile info including image
 
 // configure multer

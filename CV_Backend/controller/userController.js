@@ -1,5 +1,20 @@
 const UserModel = require('../models/userSchema')
 const CVmodel = require('../models/userCVSchema')
+
+const updateUserCvTitle = async (req,res)=>{
+    try {
+        const { cvId, newTitle } = req.body;
+        if (!cvId || !newTitle) {
+            return res.status(400).json({ message: "All fields are required" });
+        }
+
+        await CVmodel.findByIdAndUpdate(cvId, { title: newTitle });
+        res.status(200).json({ success: true, message: "CV title updated successfully" });
+    } catch (error) {
+        res.status(500).json({ success: false, message: "Server Error" });
+    }
+}
+
 const fetchUserDashboardData = async (req, res)=>{
     try {
         const userCVs = await CVmodel.find({userId: req.userInfo._id});
@@ -93,4 +108,4 @@ try {
     }
 }
 
-module.exports = {fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly, fetchCurrentWorkingCV};
+module.exports = {updateUserCvTitle, fetchUserDashboardData, createNewCv, deleteUserCv, toggleFavorite, fetchFavoriteCVsOnly, fetchCurrentWorkingCV};

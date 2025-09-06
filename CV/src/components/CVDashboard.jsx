@@ -25,30 +25,6 @@ import toastShow from "../utils/toastShow";
 import { useEffect } from "react";
 import { useAuthUser } from "../context/AuthContext";
 
-/**
- * Demo data (replace with your backend-driven list)
- * Each CV item can come from your DB.
- */
-const demoCVs = [
-    {
-        id: "cv_01",
-        title: "Web Developer — MERN",
-        template: "All Access",
-        createdAt: "2025-01-20T10:00:00.000Z",
-        updatedAt: "2025-02-17T08:20:00.000Z",
-        isFavorite: true,
-    },
-    {
-        id: "cv_02",
-        title: "Backend Developer — Node.js",
-        template: "All Access",
-        createdAt: "2025-02-01T12:00:00.000Z",
-        updatedAt: "2025-02-15T09:40:00.000Z",
-        isFavorite: false,
-    },
-
-];
-
 const templates = [
     {
         key: "Formal",
@@ -118,6 +94,46 @@ function TemplateCard({ t }) {
 }
 
 function CVCard({ cv, onToggleFavorite, onDelete }) {
+    const [isEditing, setIsEditing] = useState(false);
+    const [title, setTitle] = useState(cv.title);
+    const [loading, setLoading] = useState(false);
+
+    const handleEditClick = () => {
+        setIsEditing(true);
+    };
+
+    const handleCancel = () => {
+        setTitle(cv.title); // reset to original
+        setIsEditing(false);
+    };
+
+    const handleSubmit = async () => {
+        if (!title.trim() || title === cv.title) {
+            setIsEditing(false);
+            return;
+        }
+
+        try {
+            setLoading(true);
+            const response = await axiosInstance.patch("/updateUserCvTitle", {
+                cvId: cv._id,
+                newTitle: title.trim(),
+            });
+
+            if (response.data.success) {
+                toastShow(response.data.message, "success");
+            } else {
+                toastShow(response.data.message, "error");
+            }
+        } catch (error) {
+            console.error("Error updating CV title:", error);
+            toastShow("Failed to update CV title", "error");
+        } finally {
+            setLoading(false);
+            setIsEditing(false);
+        }
+    };
+
     return (
         <div className="relative min-w-[420px] rounded-2xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-lg transition">
             {/* Top row */}
@@ -127,24 +143,62 @@ function CVCard({ cv, onToggleFavorite, onDelete }) {
                         <FileText className="h-6 w-6 text-gray-700" />
                     </div>
                     <div>
-                        <div className="font-semibold text-gray-900">{cv.title}</div>
-                        <div className="text-xs text-gray-500">
-                            Template: All Permitted
+                        <div className="font-semibold text-gray-900 ">
+                            <input
+                                type="text"
+                                value={title}
+                                disabled={!isEditing}
+                                onChange={(e) => setTitle(e.target.value)}
+                                className={`w-fit ${isEditing
+                                    ? "border border-gray-300 rounded-md"
+                                    : "bg-transparent cursor-default"
+                                    }`}
+                            />
+
+                            {isEditing && (
+                                <>
+                                    <button
+                                        className="bg-gray-200 mx-2 px-2 py-1 rounded hover:bg-red-600 hover:text-white"
+                                        onClick={handleCancel}
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 disabled:opacity-50"
+                                        onClick={handleSubmit}
+                                        disabled={loading}
+                                    >
+                                        {loading ? "Saving..." : "Submit"}
+                                    </button>
+                                </>
+                            )}
                         </div>
+                        <div className="text-xs text-gray-500">Template: All Permitted</div>
                     </div>
                 </div>
 
-                <button
-                    onClick={() => onToggleFavorite(cv._id)}
-                    className="rounded-full p-2 hover:bg-gray-100"
-                    title={cv.isFavorite ? "Unfavorite" : "Favorite"}
-                >
-                    {cv.isFavorite ? (
-                        <Star className="h-5 w-5 text-yellow-500" />
-                    ) : (
-                        <StarOff className="h-5 w-5 text-gray-400" />
+                <div className="flex items-center gap-3">
+                    {!isEditing && (
+                        <button
+                            className="rounded-full p-2 hover:bg-gray-100 hover:cursor-pointer"
+                            title="Change Title Name"
+                            onClick={handleEditClick}
+                        >
+                            <Edit className="h-5 w-5 text-gray-400 " />
+                        </button>
                     )}
-                </button>
+                    <button
+                        onClick={() => onToggleFavorite(cv._id)}
+                        className="rounded-full p-2 hover:bg-gray-100 hover:cursor-pointer"
+                        title={cv.isFavorite ? "Unfavorite" : "Favorite"}
+                    >
+                        {cv.isFavorite ? (
+                            <Star className="h-5 w-5 text-yellow-500" />
+                        ) : (
+                            <StarOff className="h-5 w-5 text-gray-400" />
+                        )}
+                    </button>
+                </div>
             </div>
 
             {/* Meta */}
