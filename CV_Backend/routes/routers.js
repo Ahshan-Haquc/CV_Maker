@@ -61,11 +61,18 @@ cvRouter.post("/userLogin", async (req, res) => {
     // Generate JWT token (assumes generateToken includes role info)
     const token = await user.generateToken();
 
-    // Set token in HTTP-only cookie
+    // Set token in HTTP-only cookie - eita kaj kore localhost a run krle
+    // res.cookie("userCookie", token, {
+    //   httpOnly: true,
+    //   secure: false, 
+    //   expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+    // });
+
+    //eita kaj korbe deploye korle
     res.cookie("userCookie", token, {
   httpOnly: true,
-  secure: true,          // must be true in production (HTTPS)
-  sameSite: "None",      // allows cross-site cookies
+  secure: process.env.NODE_ENV === "production", // only true in production
+  sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
   expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
 });
 

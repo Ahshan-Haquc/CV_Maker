@@ -13,6 +13,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
+// Trust proxy (important for Vercel / HTTPS)
+app.set("trust proxy", 1);
+
 app.use(cors({
   origin: [
     "http://localhost:5173", // local frontend , if i comment this line then no issue will in deployee
