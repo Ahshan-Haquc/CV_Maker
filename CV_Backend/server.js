@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 dotenv.config();
 
-// Trust proxy (important for Vercel / HTTPS)
+// Trust proxy (important for Vercel / HTTPS) , Alhamdulillah
 app.set("trust proxy", 1);
 
 app.use(cors({

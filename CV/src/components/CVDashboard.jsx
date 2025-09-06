@@ -248,7 +248,7 @@ function CVCard({ cv, onToggleFavorite, onDelete }) {
 export default function CVDashboard() {
     const navigate = useNavigate()
 
-    // Replace with your fetched list + setState
+    // Replace with your fetched list + setState, Alhamdulillah all working
     const [cvs, setCvs] = useState([]);
     const [query, setQuery] = useState("");
     const [sortBy, setSortBy] = useState("updated-desc"); // "created-asc" | "created-desc" | "updated-asc" | "updated-desc"
