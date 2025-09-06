@@ -63,10 +63,12 @@ cvRouter.post("/userLogin", async (req, res) => {
 
     // Set token in HTTP-only cookie
     res.cookie("userCookie", token, {
-      httpOnly: true,
-      secure: false, 
-      expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
-    });
+  httpOnly: true,
+  secure: true,          // must be true in production (HTTPS)
+  sameSite: "None",      // allows cross-site cookies
+  expires: new Date(Date.now() + 60 * 60 * 1000), // 1 hour
+});
+
 
     // Final response with role
     res.status(200).json({
