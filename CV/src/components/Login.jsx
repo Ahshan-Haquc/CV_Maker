@@ -86,11 +86,14 @@ const Login = () => {
           <input
             type="password"
             placeholder="Password"
-            className="w-full p-2 mb-4 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
+            className="w-full p-2 mb-1 border border-gray-300 rounded-md focus:outline-none focus:border-blue-500"
             required
             name="password"
             onChange={handleInput}
           />
+          <p className="w-full mb-4 text-sm text-gray-600 text-right">
+            forgot password
+          </p>
           <button
             type="submit"
             className="w-full p-2 bg-[#4F1C51] text-white rounded-md hover:bg-black transition duration-200"
